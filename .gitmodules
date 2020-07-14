@@ -1,0 +1,27 @@
+[submodule "foreign-ansible-solution/a13-ansible"]
+	path = foreign-ansible-solution/a13-ansible
+	url = https://github.com/stadtulm/a13-ansible.git
+[submodule "foreign-ansible-solution/ansible-role-bigbluebutton"]
+	path = foreign-ansible-solution/ansible-role-bigbluebutton
+	url = https://github.com/n0emis/ansible-role-bigbluebutton.git
+[submodule "foreign-ansible-solution/ansible-bigbluebutton"]
+	path = foreign-ansible-solution/ansible-bigbluebutton
+	url = https://github.com/juanluisbaptiste/ansible-bigbluebutton.git
+[submodule "foreign-ansible-solution/softwaremill_ansible-bigbluebutton"]
+	path = foreign-ansible-solution/softwaremill_ansible-bigbluebutton
+	url = https://github.com/softwaremill/ansible-bigbluebutton.git
+[submodule "foreign-ansible-solution/conference"]
+	path = foreign-ansible-solution/conference
+	url = https://github.com/chadgeary/conference.git
+[submodule "foreign-ansible-solution/bbb"]
+	path = foreign-ansible-solution/bbb
+	url = https://codeberg.org/DigitalSouveraeneSchule/bbb.git
+[submodule "foreign-ansible-solution/deployment-release"]
+	path = foreign-ansible-solution/deployment-release
+	url = https://omi-gitlab.e-technik.uni-ulm.de/kiz/bbb/deployment-release.git
+[submodule "foreign-ansible-solution/timeout"]
+	path = foreign-ansible-solution/timeout
+	url = https://github.com/SRCF/timeout.git
+[submodule "foreign-ansible-solution/bigbluebutton"]
+	path = foreign-ansible-solution/bigbluebutton
+	url = https://github.com/unistra/bigbluebutton.git
