@@ -85,8 +85,18 @@
 - name: Install BigBlueButton
   hosts: bbbservers
   tasks:
-     - name: Run bbb-install.sh
-       become: true
-       #shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
-       # Use this line (with sed) to disable memory size check
-       shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | sed -En 's/3940000/1/' | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
+    - name: Download bbb-install.sh
+      get_url:
+        url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+        dest: /_deployment/installation/
+        mode: '0770'
+
+    - name: Disable memory check in bbb-install.sh
+      lineinfile:
+        path: /_deployment/installation/bbb-install.sh
+        regexp: '^ check_mem'
+        state: absent
+
+    - name: Run bbb-install.sh
+      become: true
+      shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
