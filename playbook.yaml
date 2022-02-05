@@ -143,6 +143,14 @@
           - fonts-freefont-ttf
           - gsfonts
 
+# Because there is/was an issue which could be workaround by rebooting once in a while
+- name: Ensure nightly reboot
+  cron:
+    name: "Reboot"
+    minute: "0"
+    hour: "5"
+    job: "systemctl reboot"
+
 - name: Install BigBlueButton
   # hosts: bbbservers
   hosts: all
@@ -172,4 +180,6 @@
       vars:
         bbb_version: bionic-24 # Hard-code it for now.
         letsencrypt_email: test@example.com
+
+# TODO: Set up bbb-customizations
 
