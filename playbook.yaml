@@ -115,6 +115,7 @@
           path: /_deployment/installation/
           state: directory
 
+      # TODO: just checking out the official repo does not fit very good with company-internal branches
       - name: Checkout bigbluebutton-migration
         git:
           #repo: git@github.com:debuglevel/bigbluebutton-migration.git
