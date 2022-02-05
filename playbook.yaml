@@ -6,6 +6,36 @@
       become: true
       shell: "date > /tmp/_ANSIBLE_TEST"
 
+- name: Prepare host
+  hosts: all
+  tasks:
+     - name: Install etckeeper
+       become: true
+       apt:
+         name: etckeeper
+
+     - name: Install tools
+       become: true
+       apt:
+         pkg:
+          - tmux
+          - htop
+          - mc
+          - net-tools
+          - nano
+          - ncdu
+          - nmap
+          - iotop
+          - wget
+          - curl
+          - iftop
+          - pv
+          - renameutils
+          - netcat
+          - locate
+          - aptitude
+          - reptyr
+
 # https://docs.bigbluebutton.org/2.4/install.html#pre-installation-checks
 - name: Check host requirements
   # hosts: bbbservers
@@ -74,48 +104,56 @@
       ignore_errors: false
       changed_when: False
 
-- name: Prepare host
-  hosts: all
-  tasks:
-     - name: Install etckeeper
-       become: true
-       apt:
-         name: etckeeper
+- name: Ensure additional BBB tools
+    # hosts: bbbservers
+    hosts: all
+    become: true
 
-     - name: Install tools
-       become: true
+    tasks:
+      - name: Create /_deployment/    
+        file:
+          path: /_deployment/installation/
+          state: directory
+
+      - name: Checkout bigbluebutton-migration
+        git:
+          #repo: git@github.com:debuglevel/bigbluebutton-migration.git
+          repo: https://github.com/debuglevel/bigbluebutton-migration.git
+          dest: /_deployment/bigbluebutton-migration
+
+      # TODO: just checking out the official repo does not fit very good with company-internal branches
+      - name: Checkout bigbluebutton-customizations
+        git:
+          #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
+          repo: https://github.com/debuglevel/bigbluebutton-customizations.git
+          dest: /_deployment/bigbluebutton-customizations
+
+- name: Ensure BBB addons
+    # hosts: bbbservers
+    hosts: all
+    become: true
+
+    tasks:
+     - name: Ensure additional TrueType fonts
        apt:
          pkg:
-          - tmux
-          - htop
-          - mc
-          - net-tools
-          - nano
-          - ncdu
-          - nmap
-          - iotop
-          - wget
-          - curl
-          - iftop
-          - pv
-          - renameutils
-          - netcat
-          - locate
-          - aptitude
-          - reptyr
+          - ttf-mscorefonts-installer
+          - ttf-dejavu
+          - fonts-freefont-ttf
+          - gsfonts
 
 - name: Install BigBlueButton
   # hosts: bbbservers
   hosts: all
+  become: true
+
   tasks:
-    - name: Create /_deployment/installation/
-      become: true
+    - name: Create /_deployment/installation/    
       file:
         path: /_deployment/installation/
         state: directory
 
     - name: Download bbb-install.sh
-      become: true
       get_url:
         url: https://ubuntu.bigbluebutton.org/bbb-install.sh
         dest: /_deployment/installation/
@@ -123,15 +161,14 @@
         mode: '0770'
 
     - name: Disable memory check in bbb-install.sh
-      become: true
       lineinfile:
         path: /_deployment/installation/bbb-install.sh
         regexp: '^  check_mem$'
         state: absent
 
     - name: Run bbb-install.sh
-      become: true
       shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
       vars:
         bbb_version: bionic-24 # Hard-code it for now.
         letsencrypt_email: test@example.com
+
