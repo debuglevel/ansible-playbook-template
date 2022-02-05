@@ -44,7 +44,7 @@
       shell: uname -m | grep x86_64
       ignore_errors: false
 
-    - name: Check IPv6 is enaled
+    - name: Check IPv6 is enabled
       shell: ip addr | grep inet6
       ignore_errors: false
 
