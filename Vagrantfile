@@ -53,8 +53,9 @@ Vagrant.configure("2") do |config|
     # # Display the VirtualBox GUI when booting the machine
     # vb.gui = true
   
-    # Customize the amount of memory on the VM:
+    # Customize VM settings
     vb.memory = "1024"
+    vb.cpus = 4
   end
   #
   # View the documentation for the provider you are using for more
