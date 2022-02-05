@@ -1,15 +1,16 @@
 ---
-- name: Just test a bit
+- name: General test
   hosts: all
   tasks:
-     - name: Leaving a mark
-       command: "touch /tmp/ansible_was_here"
-       #command: "date > /tmp/ansible_was_here"
+    - name: Write date as root to /tmp/_ANSIBLE_TEST
+      become: true
+      shell: "date > /tmp/_ANSIBLE_TEST"
 
-- name: Checking host requirements
+# https://docs.bigbluebutton.org/2.4/install.html#pre-installation-checks
+- name: Check host requirements
   hosts: bbbservers
   tasks:
-    - name: Ensure locale is en_US.UTF-8
+    - name: Check that locale is 'en_US.UTF-8' in /etc/default/locale
       lineinfile:
         name: /etc/default/locale
         line: 'LANG="en_US.UTF-8"'
@@ -18,23 +19,36 @@
       register: conf
       failed_when: (conf is changed) or (conf is failed)
 
-    - name: Ensure en_US.UTF-8 is in 'systemctl show-environment'
+    - name: Check that 'LC_ALL' is not in /etc/default/locale
+      lineinfile:
+        name: /etc/default/locale
+        line: 'LC_ALL'
+        state: absent
+      check_mode: true
+      register: conf
+      failed_when: (conf is changed) or (conf is failed)
+
+    - name: Check 'en_US.UTF-8' is in 'systemctl show-environment'
       shell: systemctl show-environment | grep LANG=en_US.UTF-8
       ignore_errors: false
 
-    - name: Ensure distribution is Ubuntu 18.04
-      shell: cat /etc/lsb-release | grep DISTRIB_RELEASE=18.04
+    - name: Check distribution is Ubuntu 18.04 (bionic)
+      shell: cat /etc/lsb-release | grep {{ item }}
+      with_items:
+      - DISTRIB_ID=Ubuntu
+      - DISTRIB_RELEASE=18.04
+      - DISTRIB_CODENAME=bionic
       ignore_errors: false
 
-    - name: Ensure 64bit arch
-      shell: uname -m | x86_64
+    - name: Check architecture is 64 bit
+      shell: uname -m | grep x86_64
       ignore_errors: false
 
-    - name: Ensure IPv6
+    - name: Check IPv6 is enaled
       shell: ip addr | grep inet6
       ignore_errors: false
 
-    - name: Ensure Kernel 4.x
+    - name: Check kernel is 4.x
       shell: uname -r | grep 4\.
       ignore_errors: false
 
@@ -73,4 +87,6 @@
   tasks:
      - name: Run bbb-install.sh
        become: true
-       shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
+       #shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
+       # Use this line (with sed) to disable memory size check
+       shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | sed -En 's/3940000/1/' | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
