@@ -1,0 +1,76 @@
+---
+- name: Just test a bit
+  hosts: all
+  tasks:
+     - name: Leaving a mark
+       command: "touch /tmp/ansible_was_here"
+       #command: "date > /tmp/ansible_was_here"
+
+- name: Checking host requirements
+  hosts: bbbservers
+  tasks:
+    - name: Ensure locale is en_US.UTF-8
+      lineinfile:
+        name: /etc/default/locale
+        line: 'LANG="en_US.UTF-8"'
+        state: present
+      check_mode: true
+      register: conf
+      failed_when: (conf is changed) or (conf is failed)
+
+    - name: Ensure en_US.UTF-8 is in 'systemctl show-environment'
+      shell: systemctl show-environment | grep LANG=en_US.UTF-8
+      ignore_errors: false
+
+    - name: Ensure distribution is Ubuntu 18.04
+      shell: cat /etc/lsb-release | grep DISTRIB_RELEASE=18.04
+      ignore_errors: false
+
+    - name: Ensure 64bit arch
+      shell: uname -m | x86_64
+      ignore_errors: false
+
+    - name: Ensure IPv6
+      shell: ip addr | grep inet6
+      ignore_errors: false
+
+    - name: Ensure Kernel 4.x
+      shell: uname -r | grep 4\.
+      ignore_errors: false
+
+- name: Prepare host
+  hosts: all
+  tasks:
+     - name: Install etckeeper
+       become: true
+       apt:
+         name: etckeeper
+
+     - name: Install tools
+       become: true
+       apt:
+         pkg:
+         - tmux
+         - htop
+         - mc
+         - net-tools
+         - nano
+         - ncdu
+         - nmap
+         - iotop
+         - wget
+         - curl
+         - iftop
+         - pv
+         - renameutils
+         - netcat
+         - locate
+         - aptitude
+         - reptyr
+
+- name: Install BigBlueButton
+  hosts: bbbservers
+  tasks:
+     - name: Run bbb-install.sh
+       become: true
+       shell: "wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"

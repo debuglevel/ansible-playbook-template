@@ -8,13 +8,15 @@ We use Vagrant to start a fresh virtual machine image we can test our Ansible st
 
 Install Vagrant according to <https://www.vagrantup.com/downloads>.
 
-### Install VirtualBox
+### Install hypervisor
 
 To actually use Vagrant, you need a "provider". On Linux, use VirtualBox. On Ubuntu, install it via:
 
 ```sh
 sudo apt install virtualbox virtualbox-ext-pack
 ```
+
+On Windows, use Hyper-V. Be aware that you need to execute `vagrant` in shell with administrator privileges.
 
 ## Vagrant
 

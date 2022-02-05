@@ -10,13 +10,34 @@ You have to install ansible on your controller node. This just might just be a l
 
 See also <https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
 
+If you're lower then Python 3.8, install it: <https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04>
+
 ### Install ansible via `pip` in a virtual environment
 
 You probably do yourself a favour if you install ansible in a virtual environment:
 
 ```sh
 python -m venv venv  # Create a virtualenv if one does not already exist
+#python3.8 -m venv venv  # ... if your default Python is too old
 source venv/bin/activate   # Activate the virtual environment
-python -m pip install ansible
+pip install --upgrade pip # Maybe update pip, as old versions may cause errors
+python -m pip install ansible # works without "python3.8" as we're in a venv
 ```
 
+## Use Ansible
+
+* Use `-i inventory` to use `inventory` as jour inventory file.
+* Use `-u user` to use the `user` user to connect via SSH (instead of the current user's username)
+* Use `--verbose` to see detailed output from modules.
+* Use `--e "letsencrypt_email=bla@bla.bla"` to override variables.
+* Use `--ask-become-pass` to provide a sudo password.
+
+* Simple test against all hosts
+  * `ansible all -i inventory -m ping`
+  * `ansible all -i inventory -a "/bin/echo hello"`
+
+* If your pathcontains a space, you might need to use `python3.8 venv/bin/ansible` instead, because the space seems to kill the shebang.
+
+* "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
+* "You can use ansible-lint for detailed, Ansible-specific feedback on your playbooks" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
+* Run the playbook via `ansible-playbook playbook.yaml`

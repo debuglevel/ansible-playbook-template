@@ -10,7 +10,9 @@
 
   - name: Install BBB
     become: true
-    shell: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -a -v bionic-24 -s example.com -e bla@example.com
+    #shell: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | bash -s -- -w -a -v bionic-24 -s example.com -e bla@example.com
+    # Use this command to disable memory check
+    shell: wget -qO- https://ubuntu.bigbluebutton.org/bbb-install.sh | sed -En 's/3940000/1/' | bash -s -- -w -a -v bionic-24 -s example.com -e bla@example.com
   #   register: hello
 
   # - debug: msg="{{ hello.stdout }}"
