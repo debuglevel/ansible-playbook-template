@@ -105,51 +105,54 @@
       changed_when: False
 
 - name: Ensure additional BBB tools
-    # hosts: bbbservers
-    hosts: all
-    become: true
+  # hosts: bbbservers
+  hosts: all
+  become: true
 
-    tasks:
-      - name: Create /_deployment/    
-        file:
-          path: /_deployment/installation/
-          state: directory
+  tasks:
+    - name: Create /_deployment/    
+      file:
+        path: /_deployment/installation/
+        state: directory
 
-      # TODO: just checking out the official repo does not fit very well with company-internal branches
-      - name: Checkout bigbluebutton-migration
-        git:
-          #repo: git@github.com:debuglevel/bigbluebutton-migration.git
-          repo: https://github.com/debuglevel/bigbluebutton-migration.git
-          dest: /_deployment/bigbluebutton-migration
+    # TODO: just checking out the official repo does not fit very well with company-internal branches
+    - name: Checkout bigbluebutton-migration
+      git:
+        #repo: git@github.com:debuglevel/bigbluebutton-migration.git
+        repo: https://github.com/debuglevel/bigbluebutton-migration.git
+        dest: /_deployment/bigbluebutton-migration
 
-      # TODO: just checking out the official repo does not fit very well with company-internal branches
-      - name: Checkout bigbluebutton-customizations
-        git:
-          #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
-          repo: https://github.com/debuglevel/bigbluebutton-customizations.git
-          dest: /_deployment/bigbluebutton-customizations
+    # TODO: just checking out the official repo does not fit very well with company-internal branches
+    - name: Checkout bigbluebutton-customizations
+      git:
+        #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
+        repo: https://github.com/debuglevel/bigbluebutton-customizations.git
+        dest: /_deployment/bigbluebutton-customizations
 
 - name: Ensure BBB addons
-    # hosts: bbbservers
-    hosts: all
-    become: true
+  # hosts: bbbservers
+  hosts: all
+  become: true
 
-    tasks:
-     - name: Ensure additional TrueType fonts
-       apt:
-         pkg:
-          - ttf-mscorefonts-installer
-          - ttf-dejavu
-          - fonts-freefont-ttf
-          - gsfonts
+  tasks:
+    - name: Ensure additional TrueType fonts
+      apt:
+        pkg:
+        - ttf-mscorefonts-installer
+        - ttf-dejavu
+        - fonts-freefont-ttf
+        - gsfonts
 
 # Because there is/was an issue which could be workaround by rebooting once in a while
 - name: Ensure nightly reboot
-  cron:
-    name: "Reboot"
-    minute: "0"
-    hour: "5"
-    job: "systemctl reboot"
+  hosts: all
+  tasks:
+    - name: Ensure nightly reboot
+      cron:
+        name: "Reboot"
+        minute: "0"
+        hour: "5"
+        job: "systemctl reboot"
 
 - name: Install BigBlueButton
   # hosts: bbbservers
@@ -157,7 +160,7 @@
   become: true
 
   tasks:
-    - name: Create /_deployment/installation/    
+    - name: Create /_deployment/installation/
       file:
         path: /_deployment/installation/
         state: directory
