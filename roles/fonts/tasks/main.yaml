@@ -1,0 +1,9 @@
+- name: Ensure additional TrueType fonts
+  apt:
+    pkg:
+      - ttf-mscorefonts-installer
+      - ttf-dejavu
+      - fonts-freefont-ttf
+      - gsfonts
+  tags:
+    - installation

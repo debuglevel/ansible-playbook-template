@@ -123,16 +123,8 @@
   hosts: all
   become: true
 
-  tasks:
-    - name: Ensure additional TrueType fonts
-      apt:
-        pkg:
-          - ttf-mscorefonts-installer
-          - ttf-dejavu
-          - fonts-freefont-ttf
-          - gsfonts
-      tags:
-        - installation
+  roles:
+    - fonts
 
 # Because there is/was an issue which could be workaround by rebooting once in a while
 - name: Ensure nightly reboot
