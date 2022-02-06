@@ -10,33 +10,7 @@
   hosts: all
   roles:
     - etckeeper
-
-- name: Prepare host
-  hosts: all
-  tasks:
-    - name: Install tools
-      become: true
-      apt:
-        pkg:
-          - tmux
-          - htop
-          - mc
-          - net-tools
-          - nano
-          - ncdu
-          - nmap
-          - iotop
-          - wget
-          - curl
-          - iftop
-          - pv
-          - renameutils
-          - netcat
-          - locate
-          - aptitude
-          - reptyr
-      tags:
-        - installation
+    - utils
 
 # https://docs.bigbluebutton.org/2.4/install.html#pre-installation-checks
 - name: Check host requirements

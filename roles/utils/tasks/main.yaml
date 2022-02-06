@@ -1,0 +1,23 @@
+- name: Install tools
+  become: true
+  apt:
+    pkg:
+      - tmux
+      - htop
+      - mc
+      - net-tools
+      - nano
+      - ncdu
+      - nmap
+      - iotop
+      - wget
+      - curl
+      - iftop
+      - pv
+      - renameutils
+      - netcat
+      - locate
+      - aptitude
+      - reptyr
+  tags:
+    - installation
