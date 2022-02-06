@@ -1,0 +1,16 @@
+- name: Ensure /_deployment/
+  file:
+    path: /_deployment/
+    state: directory
+
+# TODO: just checking out the official repo does not fit very well with company-internal branches
+- name: Checkout bigbluebutton-customizations
+  git:
+    #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
+    repo: https://github.com/debuglevel/bigbluebutton-customizations.git
+    dest: /_deployment/bigbluebutton-customizations
+
+- name: Run bigbluebutton-customizations
+  command: /_deployment/bigbluebutton-customizations/apply-config.sh
+  tags:
+    - configuration
