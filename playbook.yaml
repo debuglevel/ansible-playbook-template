@@ -6,23 +6,15 @@
       become: true
       shell: "date > /tmp/_ANSIBLE_TEST"
 
-- name: Put /etc under version control
+- name: Ensure system configuration
   collections:
     ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
   hosts: all
   become: true
   roles:
     - etckeeper
-
-# Because there is/was an issue which could be workaround by rebooting once in a while
-- name: Ensure nightly reboot
-  hosts: all
-  roles:
+    # Because there is/was an issue which could be workaround by rebooting once in a while
     - reboot-nightly
-
-- name: Ensure utils
-  hosts: all
-  roles:
     - utils
 
 - name: Ensure BigBlueButton
@@ -31,12 +23,6 @@
   become: true
   roles:
     - bigbluebutton
-
-- name: Ensure additional BigBlueButton utils
-  # hosts: bbbservers
-  hosts: all
-  become: true
-  roles:
     - bigbluebutton-customizations
     - bigbluebutton-migration
     - fonts
