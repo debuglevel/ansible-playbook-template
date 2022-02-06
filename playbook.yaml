@@ -172,11 +172,11 @@
         force: true # Always download and update the file
         mode: "0770"
 
-    - name: Disable memory check in bbb-install.sh
-      lineinfile:
-        path: /_deployment/installation/bbb-install.sh
-        regexp: "^  check_mem$"
-        state: absent
+    # - name: Disable memory check in bbb-install.sh
+    #   lineinfile:
+    #     path: /_deployment/installation/bbb-install.sh
+    #     regexp: "^  check_mem$"
+    #     state: absent
 
     - name: Run bbb-install.sh
       #shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
