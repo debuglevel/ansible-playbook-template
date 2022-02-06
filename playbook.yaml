@@ -13,6 +13,8 @@
       become: true
       apt:
         name: etckeeper
+      tags:
+        - installation
 
     - name: Install tools
       become: true
@@ -35,6 +37,8 @@
           - locate
           - aptitude
           - reptyr
+      tags:
+        - installation
 
 # https://docs.bigbluebutton.org/2.4/install.html#pre-installation-checks
 - name: Check host requirements
@@ -45,10 +49,14 @@
       become: true
       apt:
         name: language-pack-en
+      tags:
+        - installation
 
     - name: Update locale
       become: true
       command: update-locale LANG=en_US.UTF-8
+      tags:
+        - configuration
 
     - name: Check that 'LANG=en_US.UTF-8' is in /etc/default/locale
       lineinfile:
@@ -60,6 +68,8 @@
       register: conf
       failed_when: (conf is changed) or (conf is failed)
       changed_when: False # Never report that this task has changed anything
+      tags:
+        - check
 
     - name: Check that 'LC_ALL' is not in /etc/default/locale
       lineinfile:
@@ -70,15 +80,21 @@
       register: conf
       failed_when: (conf is changed) or (conf is failed)
       changed_when: False
+      tags:
+        - check
 
     - name: Set 'LANG=en_US.UTF-8' for systemd environment
       become: true
       shell: systemctl set-environment LANG=en_US.UTF-8
+      tags:
+        - configuration
 
     - name: Check 'en_US.UTF-8' is in systemd environment
       shell: systemctl show-environment | grep LANG=en_US.UTF-8
       ignore_errors: false
       changed_when: False
+      tags:
+        - check
 
     - name: Check distribution is Ubuntu 18.04 (bionic)
       shell: cat /etc/lsb-release | grep {{ item }}
@@ -88,21 +104,29 @@
         - DISTRIB_CODENAME=bionic
       ignore_errors: false
       changed_when: False
+      tags:
+        - check
 
     - name: Check architecture is 64 bit
       shell: uname -m | grep x86_64
       ignore_errors: false
       changed_when: False
+      tags:
+        - check
 
     - name: Check IPv6 is enabled
       shell: ip addr | grep inet6
       ignore_errors: false
       changed_when: False
+      tags:
+        - check
 
     - name: Check kernel is 4.x
       shell: uname -r | grep 4\.
       ignore_errors: false
       changed_when: False
+      tags:
+        - check
 
 - name: Ensure additional BBB tools
   # hosts: bbbservers
@@ -110,9 +134,9 @@
   become: true
 
   tasks:
-    - name: Create /_deployment/
+    - name: Ensure /_deployment/
       file:
-        path: /_deployment/installation/
+        path: /_deployment/
         state: directory
 
     # TODO: just checking out the official repo does not fit very well with company-internal branches
@@ -121,13 +145,6 @@
         #repo: git@github.com:debuglevel/bigbluebutton-migration.git
         repo: https://github.com/debuglevel/bigbluebutton-migration.git
         dest: /_deployment/bigbluebutton-migration
-
-    # TODO: just checking out the official repo does not fit very well with company-internal branches
-    - name: Checkout bigbluebutton-customizations
-      git:
-        #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
-        repo: https://github.com/debuglevel/bigbluebutton-customizations.git
-        dest: /_deployment/bigbluebutton-customizations
 
 - name: Ensure BBB addons
   # hosts: bbbservers
@@ -142,6 +159,8 @@
           - ttf-dejavu
           - fonts-freefont-ttf
           - gsfonts
+      tags:
+        - installation
 
 # Because there is/was an issue which could be workaround by rebooting once in a while
 - name: Ensure nightly reboot
@@ -153,6 +172,8 @@
         minute: "0"
         hour: "5"
         job: "systemctl reboot"
+      tags:
+        - configuration
 
 - name: Install BigBlueButton
   # hosts: bbbservers
@@ -160,7 +181,7 @@
   become: true
 
   tasks:
-    - name: Create /_deployment/installation/
+    - name: Ensure /_deployment/installation/
       file:
         path: /_deployment/installation/
         state: directory
@@ -185,5 +206,28 @@
       vars:
         bbb_version: bionic-24 # Hard-code it for now.
         letsencrypt_email: test@example.com
-# TODO: Set up bbb-customizations
+      tags:
+        - installation
 
+- name: Apply bigbluebutton-customizations
+  # hosts: bbbservers
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure /_deployment/
+      file:
+        path: /_deployment/
+        state: directory
+
+    # TODO: just checking out the official repo does not fit very well with company-internal branches
+    - name: Checkout bigbluebutton-customizations
+      git:
+        #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
+        repo: https://github.com/debuglevel/bigbluebutton-customizations.git
+        dest: /_deployment/bigbluebutton-customizations
+
+    - name: Run bigbluebutton-customizations
+      command: /_deployment/bigbluebutton-customizations/apply-config.sh
+      tags:
+        - configuration
