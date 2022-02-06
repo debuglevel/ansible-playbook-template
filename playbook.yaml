@@ -129,15 +129,8 @@
 # Because there is/was an issue which could be workaround by rebooting once in a while
 - name: Ensure nightly reboot
   hosts: all
-  tasks:
-    - name: Ensure nightly reboot
-      cron:
-        name: "Reboot"
-        minute: "0"
-        hour: "5"
-        job: "systemctl reboot"
-      tags:
-        - configuration
+  roles:
+    - reboot-nightly
 
 - name: Install BigBlueButton
   # hosts: bbbservers

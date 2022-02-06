@@ -1,0 +1,8 @@
+- name: Ensure nightly reboot
+  cron:
+    name: "Reboot"
+    minute: "0"
+    hour: "5"
+    job: "systemctl reboot"
+  tags:
+    - configuration
