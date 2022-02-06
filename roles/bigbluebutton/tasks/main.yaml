@@ -1,0 +1,27 @@
+- name: Ensure /_deployment/installation/
+  file:
+    path: /_deployment/installation/
+    state: directory
+
+- name: Download bbb-install.sh
+  get_url:
+    url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+    dest: /_deployment/installation/
+    force: true # Always download and update the file
+    mode: "0770"
+
+# - name: Disable memory check in bbb-install.sh
+#   lineinfile:
+#     path: /_deployment/installation/bbb-install.sh
+#     regexp: "^  check_mem$"
+#     state: absent
+
+- name: Run bbb-install.sh
+  #shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
+  # TODO: this one is without "-e" which effectively disables lets encrypt
+  shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -g"
+  vars:
+    bbb_version: bionic-24 # Hard-code it for now.
+    letsencrypt_email: test@example.com
+  tags:
+    - installation
