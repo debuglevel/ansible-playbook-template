@@ -8,14 +8,12 @@
 
 - name: Prepare host
   hosts: all
-  tasks:
-    - name: Install etckeeper
-      become: true
-      apt:
-        name: etckeeper
-      tags:
-        - installation
+  roles:
+    - etckeeper
 
+- name: Prepare host
+  hosts: all
+  tasks:
     - name: Install tools
       become: true
       apt:

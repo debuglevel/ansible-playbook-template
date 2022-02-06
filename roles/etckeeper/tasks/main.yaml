@@ -1,0 +1,6 @@
+- name: Install etckeeper
+  become: true
+  apt:
+    name: etckeeper
+  tags:
+    - installation
