@@ -6,10 +6,18 @@
       become: true
       shell: "date > /tmp/_ANSIBLE_TEST"
 
-- name: Prepare host
+- name: Put /etc under version control
+  collections:
+    ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
   hosts: all
+  become: true
   roles:
     - etckeeper
+
+- name: Prepare host
+  hosts: all
+  become: true
+  roles:
     - utils
 
 # https://docs.bigbluebutton.org/2.4/install.html#pre-installation-checks

@@ -76,6 +76,9 @@ Vagrant.configure("2") do |config|
   # Run Ansible from inside the Vagrant VM
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "playbook.yaml"
+    ansible.galaxy_role_file = "requirements.yaml"
+    # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
+    ansible.galaxy_command = "sudo ansible-galaxy collection install -r %{role_file} --force && sudo ansible-galaxy role install -r %{role_file} --force"
   end
 
   # # Run Ansible from the Vagrant host

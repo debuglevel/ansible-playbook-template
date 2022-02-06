@@ -24,6 +24,12 @@ pip install --upgrade pip # Maybe update pip, as old versions may cause errors
 python -m pip install ansible # works without "python3.8" as we're in a venv
 ```
 
+### Install ansible dependency stuff
+
+```sh
+ansible-galaxy install -r requirements.yaml
+```
+
 ## Use Ansible
 
 * Use `-i inventory` to use `inventory` as jour inventory file.
