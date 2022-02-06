@@ -1,4 +1,5 @@
 - name: Ensure additional TrueType fonts
+  become: true
   apt:
     pkg:
       - ttf-mscorefonts-installer

@@ -14,9 +14,14 @@
   roles:
     - etckeeper
 
-- name: Prepare host
+# Because there is/was an issue which could be workaround by rebooting once in a while
+- name: Ensure nightly reboot
   hosts: all
-  become: true
+  roles:
+    - reboot-nightly
+
+- name: Ensure utils
+  hosts: all
   roles:
     - utils
 
@@ -108,37 +113,6 @@
       tags:
         - check
 
-- name: Ensure additional BBB tools
-  # hosts: bbbservers
-  hosts: all
-  become: true
-
-  tasks:
-    - name: Ensure /_deployment/
-      file:
-        path: /_deployment/
-        state: directory
-
-    # TODO: just checking out the official repo does not fit very well with company-internal branches
-    - name: Checkout bigbluebutton-migration
-      git:
-        #repo: git@github.com:debuglevel/bigbluebutton-migration.git
-        repo: https://github.com/debuglevel/bigbluebutton-migration.git
-        dest: /_deployment/bigbluebutton-migration
-
-- name: Ensure BBB addons
-  # hosts: bbbservers
-  hosts: all
-  become: true
-  roles:
-    - fonts
-
-# Because there is/was an issue which could be workaround by rebooting once in a while
-- name: Ensure nightly reboot
-  hosts: all
-  roles:
-    - reboot-nightly
-
 - name: Install BigBlueButton
   # hosts: bbbservers
   hosts: all
@@ -146,9 +120,11 @@
   roles:
     - bigbluebutton
 
-- name: Apply bigbluebutton-customizations
+- name: Ensure additional BigBlueButton utils
   # hosts: bbbservers
   hosts: all
   become: true
   roles:
     - bigbluebutton-customizations
+    - bigbluebutton-migration
+    - fonts
