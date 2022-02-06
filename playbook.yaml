@@ -122,7 +122,6 @@
   # hosts: bbbservers
   hosts: all
   become: true
-
   roles:
     - fonts
 
@@ -136,7 +135,6 @@
   # hosts: bbbservers
   hosts: all
   become: true
-
   roles:
     - bigbluebutton
 
@@ -144,6 +142,5 @@
   # hosts: bbbservers
   hosts: all
   become: true
-
   roles:
     - bigbluebutton-customizations
