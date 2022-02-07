@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  bbb-exporter:
+  bigbluebutton-exporter:
     container_name: "bigbluebutton-exporter"
     image: greenstatic/bigbluebutton-exporter:v0.6.0
     ports:

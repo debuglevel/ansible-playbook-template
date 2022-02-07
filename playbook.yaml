@@ -22,8 +22,9 @@
   hosts: all
   become: true
   roles:
-    - bigbluebutton-exporter
     - bigbluebutton
     - bigbluebutton-customizations
+    - bigbluebutton-exporter
+    - bigbluebutton-monitoring
     - bigbluebutton-migration
     - fonts
