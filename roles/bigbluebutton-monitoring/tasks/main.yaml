@@ -1,2 +1,2 @@
-- include: exporter.yaml
+- include: monitoring.yaml
 - include: nginx.yaml

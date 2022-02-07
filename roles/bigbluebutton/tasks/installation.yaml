@@ -25,3 +25,4 @@
     letsencrypt_email: test@example.com
   tags:
     - installation
+    - long-running
