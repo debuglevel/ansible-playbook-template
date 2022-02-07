@@ -39,12 +39,6 @@
       - "{{ '-g' if install_greenlight == true else '' }}"
       - "{{ '-e'              if letsencrypt == true else '' }}"
       - "{{ letsencrypt_email if letsencrypt == true else '' }}"
-  vars:
-    bigbluebutton_version: bionic-24 # Hard-code it for now.
-    letsencrypt: false
-    letsencrypt_email: test@example.com
-    install_greenlight: true
-    install_firewall: true
   tags:
     - installation
     - long-running
