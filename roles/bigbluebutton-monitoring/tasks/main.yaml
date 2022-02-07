@@ -1,2 +1,2 @@
-- import_tasks: exporter.yaml
-- import_tasks: nginx.yaml
+- include: exporter.yaml
+- include: nginx.yaml
