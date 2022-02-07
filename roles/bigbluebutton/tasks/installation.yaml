@@ -16,13 +16,33 @@
 #     regexp: "^  check_mem$"
 #     state: absent
 
+- name: Get hostname
+  command: hostname -f
+  register: hostname
+  changed_when: false
+- set_fact:
+    hostname: "{{ hostname.stdout }}"
+- debug:
+    var: hostname
+
 - name: Run bbb-install.sh
-  #shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -e {{ letsencrypt_email }} -g"
-  # TODO: this one is without "-e" which effectively disables lets encrypt
-  shell: "/_deployment/installation/bbb-install.sh -s -- -w -v {{ bbb_version }} -s `hostname -f` -g"
+  command:
+    argv:
+      - /_deployment/installation/bbb-install.sh
+      - "{{ '-w' if install_firewall == true else '' }}"
+      - -v
+      - "{{ bigbluebutton_version }}"
+      - -s
+      - "{{ hostname }}"
+      - "{{ '-g' if install_greenlight == true else '' }}"
+      - "{{ '-e'              if letsencrypt == true else '' }}"
+      - "{{ letsencrypt_email if letsencrypt == true else '' }}"
   vars:
-    bbb_version: bionic-24 # Hard-code it for now.
+    bigbluebutton_version: bionic-24 # Hard-code it for now.
+    letsencrypt: false
     letsencrypt_email: test@example.com
+    install_greenlight: true
+    install_firewall: true
   tags:
     - installation
     - long-running
