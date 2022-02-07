@@ -1,0 +1,20 @@
+# Needed for htpasswd role
+- name: Ensure python passlib
+  become: true
+  apt:
+    pkg:
+      - python-passlib
+      - python3-passlib
+  tags:
+    - installation
+
+- name: Ensure Basic Auth
+  htpasswd:
+    path: /etc/nginx/conf.d/node-exporter.htpasswd
+    name: "{{ node_exporter_proxy_basic_auth_username }}"
+    password: "{{ node_exporter_proxy_basic_auth_password }}"
+
+- name: Ensure nginx config
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/conf.d/node-exporter.conf

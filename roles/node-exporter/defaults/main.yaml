@@ -1,0 +1,2 @@
+node_exporter_proxy_basic_auth_username: node-exporter
+node_exporter_proxy_basic_auth_password: secret

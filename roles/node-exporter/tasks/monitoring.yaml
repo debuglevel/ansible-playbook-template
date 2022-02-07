@@ -1,0 +1,19 @@
+- name: Ensure /_deployment/node-exporter
+  file:
+    path: /_deployment/node-exporter
+    state: directory
+
+- name: Ensure docker-compose.yaml
+  template:
+    src: docker-compose.yaml
+    dest: /_deployment/node-exporter/docker-compose.yaml
+
+- name: Ensure docker-compose
+  become: true
+  apt:
+    name: docker-compose
+  tags:
+    - installation
+
+- name: Ensure service running
+  shell: "cd /_deployment/node-exporter/ && docker-compose up -d"
