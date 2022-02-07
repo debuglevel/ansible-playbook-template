@@ -1,8 +1,8 @@
 bigbluebutton_version: bionic-24 # Hard-code it for now.
 
-letsencrypt: false
-letsencrypt_email: test@example.com
+bigbluebutton_use_letsencrypt: false
+bigbluebutton_letsencrypt_email: test@example.com
 
-install_greenlight: true
+bigbluebutton_install_greenlight: true
 
-install_firewall: true
+bigbluebutton_install_firewall: true

@@ -31,14 +31,14 @@
   command:
     argv:
       - /_deployment/installation/bbb-install.sh
-      - "{{ '-w' if install_firewall == true else '' }}"
+      - "{{ '-w' if bigbluebutton_install_firewall == true else '' }}"
       - -v
       - "{{ bigbluebutton_version }}"
       - -s
       - "{{ hostname }}"
-      - "{{ '-g' if install_greenlight == true else '' }}"
-      - "{{ '-e'              if letsencrypt == true else '' }}"
-      - "{{ letsencrypt_email if letsencrypt == true else '' }}"
+      - "{{ '-g' if bigbluebutton_install_greenlight == true else '' }}"
+      - "{{ '-e'                            if bigbluebutton_use_letsencrypt == true else '' }}"
+      - "{{ bigbluebutton_letsencrypt_email if bigbluebutton_use_letsencrypt == true else '' }}"
   tags:
     - installation
     - long-running
