@@ -17,12 +17,6 @@
     - reboot-nightly
     - utils
 
-- name: Ensure monitoring
-  hosts: all
-  become: true
-  roles:
-    - node-exporter
-
 - name: Ensure BigBlueButton
   # hosts: bbbservers
   hosts: all
@@ -34,3 +28,10 @@
     - bigbluebutton-monitoring
     - bigbluebutton-migration
     - fonts
+
+# CAVEAT: After bbb, because it depends on its nginx configuration
+- name: Ensure monitoring
+  hosts: all
+  become: true
+  roles:
+    - node-exporter
