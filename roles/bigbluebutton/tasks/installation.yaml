@@ -20,9 +20,11 @@
   command: hostname -f
   register: hostname
   changed_when: false
-- set_fact:
+- name: Save hostname
+  set_fact:
     hostname: "{{ hostname.stdout }}"
-- debug:
+- name: Print hostname
+  debug:
     var: hostname
 
 - name: Run bbb-install.sh
