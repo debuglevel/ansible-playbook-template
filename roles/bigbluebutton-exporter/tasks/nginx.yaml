@@ -1,0 +1,35 @@
+- name: Ensure nginx proxies directory
+  file:
+    path: /usr/share/nginx/proxies/
+    state: directory
+
+# - name: Gather package facts
+#   package_facts:
+#     manager: auto
+
+# - name: "Fail if package {{ bigbluebutton_exporter_requires_package }} is not installed"
+#   fail:
+#     msg: "Package {{ bigbluebutton_exporter_requires_package }} is not installed!"
+#   when: bigbluebutton_exporter_requires_package not in ansible_facts.packages
+
+# Needed for htpasswd role
+- name: Ensure python passlib
+  become: true
+  apt:
+    pkg:
+      - python-passlib
+      - python3-passlib
+  tags:
+    - installation
+
+# TODO: the reverse proxy stuff (very probably) does not work yet.
+- name: Ensure Basic Auth
+  htpasswd:
+    path: /etc/nginx/conf.d/proxies/bigbluebutton-exporter.htpasswd
+    name: "{{ bigbluebutton_exporter_proxy_basic_auth_username }}"
+    password: "{{ bigbluebutton_exporter_proxy_basic_auth_password }}"
+
+- name: Ensure nginx config
+  template:
+    src: bigbluebutton-exporter.nginx
+    dest: /etc/nginx/conf.d/proxies/bigbluebutton-exporter.nginx
