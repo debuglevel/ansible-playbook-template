@@ -17,4 +17,4 @@
 - name: Ensure nginx config
   template:
     src: nginx.conf
-    dest: /etc/nginx/conf.d/bigbluebutton-monitoring.conf
+    dest: /etc/bigbluebutton/nginx/bigbluebutton-monitoring.nginx

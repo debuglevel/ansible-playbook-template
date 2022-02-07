@@ -17,4 +17,4 @@
 - name: Ensure nginx config
   template:
     src: nginx.conf
-    dest: /etc/nginx/conf.d/bigbluebutton-exporter.conf
+    dest: /etc/bigbluebutton/nginx/bigbluebutton-exporter.nginx

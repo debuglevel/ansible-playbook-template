@@ -17,4 +17,4 @@
 - name: Ensure nginx config
   template:
     src: nginx.conf
-    dest: /etc/nginx/conf.d/node-exporter.conf
+    dest: /etc/bigbluebutton/nginx/node-exporter.nginx
