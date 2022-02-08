@@ -1,0 +1,39 @@
+- name: Ensure mail settings
+  lineinfile:
+    dest: /root/greenlight/.env
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - regexp: "^ALLOW_MAIL_NOTIFICATIONS"
+      line: "ALLOW_MAIL_NOTIFICATIONS={{ greenlight_mail_notifications }}"
+    - regexp: "^SMTP_SERVER"
+      line: "SMTP_SERVER={{ greenlight_smtp_server }}"
+    - regexp: "^SMTP_PORT"
+      line: "SMTP_PORT={{ greenlight_smtp_port }}"
+    - regexp: "^SMTP_DOMAIN"
+      line: "SMTP_DOMAIN={{ greenlight_smtp_domain }}"
+    - regexp: "^SMTP_USERNAME"
+      line: "SMTP_USERNAME={{ greenlight_smtp_username }}"
+    - regexp: "^SMTP_PASSWORD"
+      line: "SMTP_PASSWORD={{ greenlight_smtp_password }}"
+    - regexp: "^SMTP_AUTH"
+      line: "SMTP_AUTH={{ greenlight_smtp_auth }}"
+    - regexp: "^SMTP_STARTTLS_AUTO"
+      line: "SMTP_STARTTLS_AUTO={{ greenlight_smtp_starttls_auto }}"
+    - regexp: "^SMTP_TLS"
+      line: "SMTP_TLS={{ greenlight_smtp_tls }}"
+    - regexp: "^SMTP_SENDER"
+      line: "SMTP_SENDER={{ greenlight_smtp_sender }}"
+    - regexp: "^SMTP_TEST_RECIPIENT"
+      line: "SMTP_TEST_RECIPIENT={{ greenlight_smtp_test_recipient }}"
+
+- name: Ensure recaptcha settings
+  lineinfile:
+    dest: /root/greenlight/.env
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - regexp: "^RECAPTCHA_SITE_KEY"
+      line: "RECAPTCHA_SITE_KEY={{ greenlight_recaptcha_site_key }}"
+    - regexp: "^RECAPTCHA_SECRET_KEY"
+      line: "RECAPTCHA_SECRET_KEY={{ greenlight_recaptcha_secret_key }}"

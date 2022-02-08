@@ -23,6 +23,7 @@
   become: true
   roles:
     - bigbluebutton
+    - greenlight
     - bigbluebutton-customizations
     - bigbluebutton-migration
     - fonts

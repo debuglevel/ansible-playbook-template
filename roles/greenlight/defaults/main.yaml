@@ -1,0 +1,41 @@
+# Set this to true if you want GreenLight to send verification emails upon
+# the creation of a new account
+#
+#   ALLOW_MAIL_NOTIFICATIONS=true
+greenlight_mail_notifications: true
+#
+# The notifications are sent using sendmail, unless the SMTP_SERVER variable is set.
+# In that case, make sure the rest of the variables are properly set.
+#
+#   SMTP_SERVER=smtp.gmail.com
+#   SMTP_PORT=587
+#   SMTP_DOMAIN=gmail.com
+#   SMTP_USERNAME=<youremail@gmail.com>
+#   SMTP_PASSWORD=<yourpassword>
+#   SMTP_AUTH=plain
+#   SMTP_STARTTLS_AUTO=true
+greenlight_smtp_server:
+greenlight_smtp_port:
+greenlight_smtp_domain:
+greenlight_smtp_username:
+greenlight_smtp_password:
+greenlight_smtp_auth:
+greenlight_smtp_starttls_auto:
+
+#   enable SMTPS: SMTP over direct TLS connection; usually port 465
+#   SMTP_TLS=true
+greenlight_smtp_tls:
+
+# If your mail server has a self-signed certificate, you'll also need to include the line below.
+# Please note that enable this presents its own security risks and should not be done unless necessary.
+#   SMTP_OPENSSL_VERIFY_MODE=none
+
+# Specify the email address that all mail is sent from
+greenlight_smtp_sender:
+
+# Specify the recipient for test emails (needed for providers like Microsoft, who are very
+# strict about RFC 2606)
+greenlight_smtp_test_recipient:
+
+greenlight_recaptcha_site_key:
+greenlight_recaptcha_secret_key:
