@@ -24,8 +24,6 @@
   roles:
     - bigbluebutton
     - bigbluebutton-customizations
-    - bigbluebutton-exporter
-    - bigbluebutton-monitoring
     - bigbluebutton-migration
     - fonts
 
@@ -34,4 +32,6 @@
   hosts: all
   become: true
   roles:
+    - bigbluebutton-exporter
+    - bigbluebutton-monitoring
     - node-exporter
