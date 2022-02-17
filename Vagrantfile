@@ -96,7 +96,7 @@ Vagrant.configure("2") do |config|
     coturn.vm.boot_timeout = 900 # instead of 300
   
     coturn.vm.provider "virtualbox" do |vb|
-      vb.memory = "512"
+      vb.memory = "800"
       vb.cpus = 1
     end
     
