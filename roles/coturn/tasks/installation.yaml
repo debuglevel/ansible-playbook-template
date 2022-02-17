@@ -1,0 +1,34 @@
+- name: Ensure /_deployment/installation/
+  file:
+    path: /_deployment/installation/
+    state: directory
+
+- name: Download bbb-install.sh
+  get_url:
+    url: https://ubuntu.bigbluebutton.org/bbb-install.sh
+    dest: /_deployment/installation/
+    force: true # Always download and update the file
+    mode: "0770"
+
+- name: Get hostname
+  command: hostname -f
+  register: hostname
+  changed_when: false
+- name: Save hostname
+  set_fact:
+    hostname: "{{ hostname.stdout }}"
+- name: Print hostname
+  debug:
+    var: hostname
+
+- name: Run bbb-install.sh
+  command:
+    argv:
+      - /_deployment/installation/bbb-install.sh
+      - -e
+      - {{ coturn_letsencrypt_email }}
+      - -c
+      - "{{ hostname }}:{{ coturn_secret }}"
+  tags:
+    - installation
+    #- long-running

@@ -18,8 +18,7 @@
     - utils
 
 - name: Ensure BigBlueButton
-  # hosts: bbbservers
-  hosts: all
+  hosts: bbb
   become: true
   roles:
     - bigbluebutton
@@ -28,9 +27,15 @@
     - bigbluebutton-migration
     - fonts
 
+- name: Ensure coTURN
+  hosts: coturn
+  become: true
+  roles:
+    - coturn
+
 # CAVEAT: After bbb, because it depends on its nginx configuration
 - name: Ensure monitoring
-  hosts: all
+  hosts: bbb
   become: true
   roles:
     - bigbluebutton-exporter
