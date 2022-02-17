@@ -31,4 +31,5 @@
       - "{{ hostname }}:{{ coturn_secret }}"
   tags:
     - installation
+    - coturn-installation
     #- long-running

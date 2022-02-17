@@ -43,4 +43,5 @@
       - "{{ bigbluebutton_coturn_server + ':' + bigbluebutton_coturn_secret if bigbluebutton_use_coturn == true else '' }}"
   tags:
     - installation
+    - bbb-installation
     - long-running
