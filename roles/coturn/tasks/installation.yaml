@@ -26,7 +26,7 @@
     argv:
       - /_deployment/installation/bbb-install.sh
       - -e
-      - {{ coturn_letsencrypt_email }}
+      - "{{ coturn_letsencrypt_email }}"
       - -c
       - "{{ hostname }}:{{ coturn_secret }}"
   tags:
