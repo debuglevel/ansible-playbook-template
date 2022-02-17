@@ -6,3 +6,7 @@ bigbluebutton_letsencrypt_email: test@example.com
 bigbluebutton_install_greenlight: true
 
 bigbluebutton_install_firewall: true
+
+bigbluebutton_use_coturn: false
+bigbluebutton_coturn_server: whatever.com
+bigbluebutton_coturn_secret: super_secret

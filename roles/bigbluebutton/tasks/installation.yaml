@@ -39,6 +39,8 @@
       - "{{ '-g' if bigbluebutton_install_greenlight == true else '' }}"
       - "{{ '-e'                            if bigbluebutton_use_letsencrypt == true else '' }}"
       - "{{ bigbluebutton_letsencrypt_email if bigbluebutton_use_letsencrypt == true else '' }}"
+      - "{{ '-c'                                                            if bigbluebutton_use_coturn == true else '' }}"
+      - "{{ bigbluebutton_coturn_server + ':' + bigbluebutton_coturn_secret if bigbluebutton_use_coturn == true else '' }}"
   tags:
     - installation
     - long-running
