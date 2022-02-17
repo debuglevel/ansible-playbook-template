@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "playbook.yaml"
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
-      ansible.galaxy_command = "sudo ansible-galaxy collection install -r %{role_file} --force && sudo ansible-galaxy role install -r %{role_file} --force"
+      ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
       ansible.groups = { "bbb" => ["bbb_vm"] }
     end
 
@@ -107,7 +107,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "playbook.yaml"
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
-      ansible.galaxy_command = "sudo ansible-galaxy collection install -r %{role_file} --force && sudo ansible-galaxy role install -r %{role_file} --force"
+      ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
       ansible.groups = { "coturn" => ["coturn_vm"] }
     end
   
