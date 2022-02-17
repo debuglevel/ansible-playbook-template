@@ -17,6 +17,12 @@
     - reboot-nightly
     - utils
 
+- name: Ensure coTURN
+  hosts: coturn
+  become: true
+  roles:
+    - coturn
+
 - name: Ensure BigBlueButton
   hosts: bbb
   become: true
@@ -26,12 +32,6 @@
     - bigbluebutton-customizations
     - bigbluebutton-migration
     - fonts
-
-- name: Ensure coTURN
-  hosts: coturn
-  become: true
-  roles:
-    - coturn
 
 # CAVEAT: After bbb, because it depends on its nginx configuration
 - name: Ensure monitoring

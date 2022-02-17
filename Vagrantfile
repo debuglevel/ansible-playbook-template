@@ -8,6 +8,32 @@
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "echo Hello all!"
 
+  config.vm.define "coturn_vm" do |coturn|
+    coturn.vm.box = "ubuntu/focal64"
+    coturn.vm.boot_timeout = 900 # instead of 300
+  
+    coturn.vm.provider "virtualbox" do |vb|
+      vb.memory = "800"
+      vb.cpus = 1
+    end
+    
+    coturn.vm.provision "shell", inline: "echo Hello coTURN!"
+  
+    # Run Ansible from inside the Vagrant VM
+    coturn.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "playbook.yaml"
+      ansible.galaxy_role_file = "requirements.yaml"
+      # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
+      ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
+      ansible.groups = { "coturn" => ["coturn_vm"] }
+    end
+  
+    # # Run Ansible from the Vagrant host
+    # config.vm.provision "ansible" do |ansible|
+    #   ansible.playbook = "playbook.yaml"
+    # end
+  end 
+
   config.vm.define "bbb_vm" do |bbb|
     # The most common configuration options are documented and commented below.
     # For a complete reference, please see the online documentation at
@@ -90,31 +116,5 @@ Vagrant.configure("2") do |config|
     #   ansible.playbook = "playbook.yaml"
     # end
   end
-
-  config.vm.define "coturn_vm" do |coturn|
-    coturn.vm.box = "ubuntu/focal64"
-    coturn.vm.boot_timeout = 900 # instead of 300
-  
-    coturn.vm.provider "virtualbox" do |vb|
-      vb.memory = "800"
-      vb.cpus = 1
-    end
-    
-    coturn.vm.provision "shell", inline: "echo Hello coTURN!"
-  
-    # Run Ansible from inside the Vagrant VM
-    coturn.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "playbook.yaml"
-      ansible.galaxy_role_file = "requirements.yaml"
-      # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
-      ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
-      ansible.groups = { "coturn" => ["coturn_vm"] }
-    end
-  
-    # # Run Ansible from the Vagrant host
-    # config.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "playbook.yaml"
-    # end
-  end 
 end
 
