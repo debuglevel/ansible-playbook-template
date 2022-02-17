@@ -8,7 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "echo Hello all!"
 
-  config.vm.define "bbb" do |bbb|
+  config.vm.define "bbb_vm" do |bbb|
     # The most common configuration options are documented and commented below.
     # For a complete reference, please see the online documentation at
     # https://docs.vagrantup.com.
@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
       ansible.galaxy_command = "sudo ansible-galaxy collection install -r %{role_file} --force && sudo ansible-galaxy role install -r %{role_file} --force"
-      ansible.groups = { "bbb" => ["bbb"] }
+      ansible.groups = { "bbb" => ["bbb_vm"] }
     end
 
     # # Run Ansible from the Vagrant host
@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     # end
   end
 
-  config.vm.define "coturn" do |coturn|
+  config.vm.define "coturn_vm" do |coturn|
     coturn.vm.box = "ubuntu/focal64"
     coturn.vm.boot_timeout = 900 # instead of 300
   
@@ -108,7 +108,7 @@ Vagrant.configure("2") do |config|
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
       ansible.galaxy_command = "sudo ansible-galaxy collection install -r %{role_file} --force && sudo ansible-galaxy role install -r %{role_file} --force"
-      ansible.groups = { "coturn" => ["coturn"] }
+      ansible.groups = { "coturn" => ["coturn_vm"] }
     end
   
     # # Run Ansible from the Vagrant host
