@@ -15,9 +15,9 @@ Vagrant.configure("2") do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://vagrantcloud.com/search.
-    config.vm.box = "ubuntu/bionic64"
+    bbb.vm.box = "ubuntu/bionic64"
 
-    config.vm.boot_timeout = 900 # instead of 300
+    bbb.vm.boot_timeout = 900 # instead of 300
 
     # Disable automatic box update checking. If you disable this, then
     # boxes will only be checked for updates when the user runs
@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
     # backing providers for Vagrant. These expose provider-specific options.
     # Example for VirtualBox:
     #
-    config.vm.provider "virtualbox" do |vb|
+    bbb.vm.provider "virtualbox" do |vb|
       # # Display the VirtualBox GUI when booting the machine
       # vb.gui = true
     
@@ -74,10 +74,10 @@ Vagrant.configure("2") do |config|
     #   apt-get install -y apache2
     # SHELL
 
-    config.vm.provision "shell", inline: "echo Hello BBB!"
+    conbbbfig.vm.provision "shell", inline: "echo Hello BBB!"
 
     # Run Ansible from inside the Vagrant VM
-    config.vm.provision "ansible_local" do |ansible|
+    bbb.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "playbook.yaml"
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
@@ -92,18 +92,18 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "coturn" do |coturn|
-    config.vm.box = "ubuntu/focal64"
-    config.vm.boot_timeout = 900 # instead of 300
+    coturn.vm.box = "ubuntu/focal64"
+    coturn.vm.boot_timeout = 900 # instead of 300
   
-    config.vm.provider "virtualbox" do |vb|
+    coturn.vm.provider "virtualbox" do |vb|
       vb.memory = "512"
       vb.cpus = 1
     end
     
-    config.vm.provision "shell", inline: "echo Hello coTURN!"
+    coturn.vm.provision "shell", inline: "echo Hello coTURN!"
   
     # Run Ansible from inside the Vagrant VM
-    config.vm.provision "ansible_local" do |ansible|
+    coturn.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "playbook.yaml"
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
