@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
     #   apt-get install -y apache2
     # SHELL
 
-    conbbbfig.vm.provision "shell", inline: "echo Hello BBB!"
+    bbb.vm.provision "shell", inline: "echo Hello BBB!"
 
     # Run Ansible from inside the Vagrant VM
     bbb.vm.provision "ansible_local" do |ansible|
