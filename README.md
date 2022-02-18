@@ -42,8 +42,8 @@ ansible-galaxy install -r requirements.yaml
   * `ansible all -i inventory -m ping`
   * `ansible all -i inventory -a "/bin/echo hello"`
 
-* If your pathcontains a space, you might need to use `python3.8 venv/bin/ansible` instead, because the space seems to kill the shebang.
+* If your pathcontains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
 
 * "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
 * "You can use ansible-lint for detailed, Ansible-specific feedback on your playbooks" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
-* Run the playbook via `ansible-playbook playbook.yaml`
+* Run the playbook via `ansible-playbook -i inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" -i inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
