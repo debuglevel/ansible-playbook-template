@@ -1,6 +1,6 @@
 - name: Ensure mail settings
   lineinfile:
-    dest: /root/greenlight/.env
+    dest: /_deployment/greenlight/.env
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   loop:
@@ -29,7 +29,7 @@
 
 - name: Ensure reCAPTCHA settings
   lineinfile:
-    dest: /root/greenlight/.env
+    dest: /_deployment/greenlight/.env
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   loop:
