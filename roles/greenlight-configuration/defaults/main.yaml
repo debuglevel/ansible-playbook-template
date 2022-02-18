@@ -2,7 +2,7 @@
 # the creation of a new account
 #
 #   ALLOW_MAIL_NOTIFICATIONS=true
-greenlight_mail_notifications: true
+greenlight_mail_notifications: false
 #
 # The notifications are sent using sendmail, unless the SMTP_SERVER variable is set.
 # In that case, make sure the rest of the variables are properly set.
