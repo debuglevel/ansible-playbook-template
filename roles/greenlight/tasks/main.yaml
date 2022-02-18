@@ -27,7 +27,7 @@
     - regexp: "^SMTP_TEST_RECIPIENT"
       line: "SMTP_TEST_RECIPIENT={{ greenlight_smtp_test_recipient }}"
 
-- name: Ensure recaptcha settings
+- name: Ensure reCAPTCHA settings
   lineinfile:
     dest: /root/greenlight/.env
     regexp: "{{ item.regexp }}"
