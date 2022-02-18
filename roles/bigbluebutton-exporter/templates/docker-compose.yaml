@@ -17,6 +17,6 @@ services:
     #  - 'bbb.example.com:1.2.3.4'  # example
     environment:
       RECORDINGS_METRICS_READ_FROM_DISK: "true"
-      API_BASE_URL: "{{ bigbluebutton_api_url.stdout }}"
-      API_SECRET: "{{ bigbluebutton_api_secret.stdout }}"
+      API_BASE_URL: "{{ bigbluebutton_url.stdout }}/api/"
+      API_SECRET: "{{ bigbluebutton_secret.stdout }}"
     restart: unless-stopped

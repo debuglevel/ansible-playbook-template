@@ -6,6 +6,6 @@ services:
     ports:
       - "127.0.0.1:6000:5000"
     environment:
-      API_BASE_URL: "{{ bigbluebutton_api_url.stdout }}"
-      API_SECRET: "{{ bigbluebutton_api_secret.stdout }}"
+      API_BASE_URL: "{{ bigbluebutton_url.stdout }}/api/"
+      API_SECRET: "{{ bigbluebutton_secret.stdout }}"
     restart: unless-stopped
