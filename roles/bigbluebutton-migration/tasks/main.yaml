@@ -17,6 +17,7 @@
   copy:
     src: bigbluebutton-migration.git/
     dest: /_deployment/bigbluebutton-migration/
+    mode: preserve
   tags:
     - bigbluebutton-migration
 

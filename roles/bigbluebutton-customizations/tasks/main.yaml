@@ -17,6 +17,7 @@
   copy:
     src: bigbluebutton-customizations.git/
     dest: /_deployment/bigbluebutton-customizations/
+    mode: preserve
   tags:
     - bigbluebutton-customizations
 
