@@ -3,12 +3,30 @@
     path: /_deployment/
     state: directory
 
-# TODO: just checking out the official repo does not fit very well with company-internal branches
-- name: Checkout bigbluebutton-customizations
-  git:
-    #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
-    repo: https://github.com/debuglevel/bigbluebutton-customizations.git
-    dest: /_deployment/bigbluebutton-customizations
+# # NOTE: Just checking out the official repository does not fit very well with company-internal branches (or even git servers which are only available from the Ansible controller but not the host)
+# - name: Checkout bigbluebutton-customizations
+#   git:
+#     #repo: git@github.com:debuglevel/bigbluebutton-customizations.git
+#     repo: https://github.com/debuglevel/bigbluebutton-customizations.git
+#     dest: /_deployment/bigbluebutton-customizations
+#   tags:
+#     - bigbluebutton-customizations
+
+# Use a local git submodule which is copied, as this circumvents problems with git servers which are not accesible from the host
+- name: Copy
+  copy:
+    src: bigbluebutton-customizations.git/
+    dest: /_deployment/bigbluebutton-customizations/
+  tags:
+    - bigbluebutton-customizations
+
+# # CAVEAT: Does not work with spaces in path
+# - name: Synchronize
+#   ansible.posix.synchronize:
+#     src: bigbluebutton-customizations.git/
+#     dest: /_deployment/bigbluebutton-customizations/
+#   tags:
+#     - bigbluebutton-customizations
 
 - name: Run bigbluebutton-customizations
   command: /_deployment/bigbluebutton-customizations/apply-config.sh
