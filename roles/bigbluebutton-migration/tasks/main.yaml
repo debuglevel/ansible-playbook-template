@@ -13,7 +13,7 @@
 #     - bigbluebutton-migration
     
 # Use a local git submodule which is copied, as this circumvents problems with git servers which are not accesible from the host
-- name: Copy
+- name: Copy directory to host
   copy:
     src: bigbluebutton-migration.git/
     dest: /_deployment/bigbluebutton-migration/

@@ -13,7 +13,7 @@
 #     - bigbluebutton-customizations
 
 # Use a local git submodule which is copied, as this circumvents problems with git servers which are not accesible from the host
-- name: Copy
+- name: Copy directory to host
   copy:
     src: bigbluebutton-customizations.git/
     dest: /_deployment/bigbluebutton-customizations/
@@ -29,7 +29,7 @@
 #   tags:
 #     - bigbluebutton-customizations
 
-- name: Run bigbluebutton-customizations
+- name: Apply customizations
   command: /_deployment/bigbluebutton-customizations/apply-config.sh
   tags:
     - configuration
