@@ -17,11 +17,11 @@ If you're lower then Python 3.8, install it: <https://askubuntu.com/questions/11
 You probably do yourself a favour if you install ansible in a virtual environment:
 
 ```sh
-python -m venv venv  # Create a virtualenv if one does not already exist
-#python3.8 -m venv venv  # ... if your default Python is too old
-source venv/bin/activate   # Activate the virtual environment
+python -m venv venv # Create a virtualenv if one does not already exist
+#python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
+source venv/bin/activate # Activate the virtual environment
 pip install --upgrade pip # Maybe update pip, as old versions may cause errors
-python -m pip install ansible # works without "python3.8" as we're in a venv
+python -m pip install ansible # Works without "python3.8" as we're in a venv
 ```
 
 ### Install ansible dependency stuff
