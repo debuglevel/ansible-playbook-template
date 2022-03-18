@@ -5,6 +5,10 @@ This ansible playbook installs BigBlueButton 2.4 on a host and a few other thing
 * Install BBB via `bbb-install.sh`
 * ...
 
+## Update submodules
+
+You have to `git pull` for each submodule while you are in its folder. Maybe also other methods work, but the TortoiseGit dialog does not do this with its default settings.
+
 ## Install Ansible
 
 You have to install ansible on your controller node. This just might just be a laptop with a recent version of Python. Windows seems not to be supported - just use WSL instead.
