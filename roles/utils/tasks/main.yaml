@@ -1,6 +1,9 @@
 - name: Install tools
   become: true
-  apt:
+  ansible.builtin.apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - tmux
       - htop
