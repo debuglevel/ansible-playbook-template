@@ -32,3 +32,15 @@ Shut down and destroy the virtual machine via `vagrant destroy`.
 ### Destroy and start virtual machine
 
 Destroy and start the virtual machine again via `vagrant destroy -f && vagrant up`.
+
+## Checking Ansible playbooks
+
+### `yamllint`
+
+* Run `yamllint playbook.yaml` to check for YAML issues.
+
+### `ansible-lint`
+
+* Install via `pip install ansible-lint` and run `ansible-lint playbook.yaml` to lint a playbook.
+
+See also <https://ansible-lint.readthedocs.io/en/latest/>
