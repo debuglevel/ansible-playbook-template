@@ -1,2 +1,8 @@
+delta.huwi.rocks    ansible_user=marc
+dbglvl1.uber.space  ansible_user=dbglvl1
+dbglvl2.uber.space  ansible_user=dbglvl2
+
 [helloworld]
 delta.huwi.rocks
+dbglvl1.uber.space
+dbglvl2.uber.space

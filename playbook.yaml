@@ -1,43 +1,19 @@
 ---
-- name: General test
+- name: Leave a mark
   hosts: all
   tasks:
-    - name: Write date as root to /tmp/_ANSIBLE_TEST
-      become: true
-      shell: "date > /tmp/_ANSIBLE_TEST"
+    - name: Ensure file /tmp/_ANSIBLE_TEST
+      ansible.builtin.file:
+        path: /tmp/_ANSIBLE_TEST
+        state: file
+    - name: Write datetime to /tmp/_ANSIBLE_TEST_DATETIME
+      shell: "date > /tmp/_ANSIBLE_TEST_DATETIME"
 
-- name: Ensure system configuration
-  collections:
-    ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
-  hosts: all
-  become: true
-  roles:
-    - etckeeper
-    # Because there is/was an issue which could be workaround by rebooting once in a while
-    - reboot-nightly
-    - utils
-
-- name: Ensure coTURN
-  hosts: coturn
-  become: true
-  roles:
-    - coturn
-
-- name: Ensure BigBlueButton
-  hosts: bbb
-  become: true
-  roles:
-    - bigbluebutton
-    - greenlight-configuration
-    - bigbluebutton-customizations
-    - bigbluebutton-migration
-    - fonts
-
-# CAVEAT: After bbb, because it depends on its nginx configuration
-- name: Ensure monitoring
-  hosts: bbb
-  become: true
-  roles:
-    - bigbluebutton-exporter
-    - bigbluebutton-monitoring
-    - node-exporter
+# - name: Ensure system configuration
+#   collections:
+#     ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
+#   hosts: all
+#   become: true
+#   roles:
+#     - etckeeper
+#     - utils
