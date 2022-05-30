@@ -10,46 +10,25 @@ Install Vagrant according to <https://www.vagrantup.com/downloads>.
 
 ### Install hypervisor
 
-To actually use Vagrant, you need a "provider". On Linux, use VirtualBox. On Ubuntu, install it via:
-
-```sh
-sudo apt install virtualbox virtualbox-ext-pack
-```
-
-On Windows, use Hyper-V. Be aware that you need to execute `vagrant` in shell with administrator privileges.
+To actually use Vagrant, you need a "provider".
+* On Linux, use VirtualBox.
+  * On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
+* On Windows, use Hyper-V. Be aware that you must execute `vagrant` in a shell with administrator privileges.
 
 ## Vagrant
 
-### Start virtual machine
+### Start virtual machine and run Ansible playbook
 
-To boot up a virtual machine:
+Create and boot a virtual machine via `vagrant up`. This will use `Vagrantfile` which in turn runs Ansible to test (or at least execute) the playbook.
 
-```sh
-vagrant up
-```
+### Run provision (i.e. Ansible playbook) again
 
-The `Vagrantfile` runs Ansible to test the playbook easily.
-
-### Run provision again
-
-To run the provision scripts again:
-
-```sh
-vagrant provision
-```
+Run the provision scripts again via `vagrant provision` without recreating the virtual machine.
 
 ### Destroy virtual machine
 
-To shut down and destroy the virtual machine:
-
-```sh
-vagrant destroy
-```
+Shut down and destroy the virtual machine via `vagrant destroy`.
 
 ### Destroy and start virtual machine
 
-To destroy and start the virtual machine again:
-
-```sh
-vagrant destroy -f && vagrant up
-```
+Destroy and start the virtual machine again via `vagrant destroy -f && vagrant up`.

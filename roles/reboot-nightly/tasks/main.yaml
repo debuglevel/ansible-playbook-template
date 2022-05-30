@@ -1,8 +1,0 @@
-- name: Ensure nightly reboot
-  cron:
-    name: "Reboot"
-    minute: "{{ reboot_nighty_minute }}"
-    hour: "{{ reboot_nighty_hour }}"
-    job: "systemctl reboot"
-  tags:
-    - configuration

@@ -8,40 +8,14 @@
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "echo Hello all!"
 
-  config.vm.define "coturn_vm" do |coturn|
-    coturn.vm.box = "ubuntu/focal64"
-    coturn.vm.boot_timeout = 900 # instead of 300
-  
-    coturn.vm.provider "virtualbox" do |vb|
-      vb.memory = "800"
-      vb.cpus = 1
-    end
-    
-    coturn.vm.provision "shell", inline: "echo Hello coTURN!"
-  
-    # Run Ansible from inside the Vagrant VM
-    coturn.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "playbook.yaml"
-      ansible.galaxy_role_file = "requirements.yaml"
-      # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
-      ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
-      ansible.groups = { "coturn" => ["coturn_vm"] }
-    end
-  
-    # # Run Ansible from the Vagrant host
-    # config.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "playbook.yaml"
-    # end
-  end 
-
-  config.vm.define "bbb_vm" do |bbb|
+  config.vm.define "vm" do |bbb|
     # The most common configuration options are documented and commented below.
     # For a complete reference, please see the online documentation at
     # https://docs.vagrantup.com.
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://vagrantcloud.com/search.
-    bbb.vm.box = "ubuntu/bionic64"
+    bbb.vm.box = "ubuntu/jammy64"
 
     bbb.vm.boot_timeout = 900 # instead of 300
 
@@ -85,8 +59,8 @@ Vagrant.configure("2") do |config|
       # vb.gui = true
     
       # Customize VM settings
-      vb.memory = "4096"
-      vb.cpus = 4
+      #vb.memory = "4096"
+      #vb.cpus = 4
     end
     #
     # View the documentation for the provider you are using for more
@@ -100,7 +74,7 @@ Vagrant.configure("2") do |config|
     #   apt-get install -y apache2
     # SHELL
 
-    bbb.vm.provision "shell", inline: "echo Hello BBB!"
+    bbb.vm.provision "shell", inline: "echo Hello VM!"
 
     # Run Ansible from inside the Vagrant VM
     bbb.vm.provision "ansible_local" do |ansible|
@@ -108,7 +82,7 @@ Vagrant.configure("2") do |config|
       ansible.galaxy_role_file = "requirements.yaml"
       # Workaround until ansible-galaxy installs roles AND collections, or Vagrant has a workaround.
       ansible.galaxy_command = "ansible-galaxy collection install -r %{role_file} --force && ansible-galaxy role install -r %{role_file} --force"
-      ansible.groups = { "bbb" => ["bbb_vm"] }
+      ansible.groups = { "xxx" => ["vm"] }
     end
 
     # # Run Ansible from the Vagrant host

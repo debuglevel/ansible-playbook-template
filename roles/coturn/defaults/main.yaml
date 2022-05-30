@@ -1,3 +1,0 @@
-coturn_install: false
-coturn_secret: super_secret
-coturn_letsencrypt_email: test@example.com

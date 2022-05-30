@@ -1,35 +1,29 @@
-# BigBlueButton Ansible Playbook
+# Ansible Playbook Template
 
-This ansible playbook installs BigBlueButton 2.4 on a host and a few other things:
-
-* Install BBB via `bbb-install.sh`
-* ...
-
-## Update submodules
-
-You have to `git pull` for each submodule while you are in its folder. Maybe also other methods work, but the TortoiseGit dialog does not do this with its default settings.
+This repository provides a template for Ansible projects.
 
 ## Install Ansible
 
-You have to install ansible on your controller node. This just might just be a laptop with a recent version of Python. Windows seems not to be supported - just use WSL instead.
+You have to install `ansible` on a controller node. This just might just be a laptop with a recent version of Python. Python on Windows is not supported - just use WSL instead.
 
 See also <https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
 
 If you're lower than Python 3.8, install it: <https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04>
 
-### Install ansible via `pip` in a virtual environment
+### Install Ansible via `pip` in a virtual environment
 
-You probably do yourself a favor if you install ansible in a virtual environment:
+You probably do yourself a favor if you install Ansible in a virtual environment:
 
 ```sh
-#python -m venv venv # Create a virtualenv if one does not already exist
+sudo apt-get update && sudo apt-get install python3-venv # Maybe you need to install the venv module
+#python -m venv venv # Create a virtual environment if one does not already exist
 python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
 source venv/bin/activate # Activate the virtual environment
 pip install --upgrade pip # Maybe update pip, as old versions may cause errors
-python -m pip install ansible # Works without "python3.8" as we're in a venv
+python -m pip install ansible # Works without "python3.8" as we're in a virtual environment now
 ```
 
-### Install ansible dependency stuff
+### Install Ansible dependency stuff
 
 ```sh
 ansible-galaxy install -r requirements.yaml
@@ -37,15 +31,15 @@ ansible-galaxy install -r requirements.yaml
 
 ## Use Ansible
 
-* Use `-i inventory` to use `inventory` as jour inventory file.
-* Use `-u user` to use the `user` user to connect via SSH (instead of the current user's username)
+* Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
+* Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
 * Use `--verbose` to see detailed output from modules.
-* Use `--e "letsencrypt_email=bla@bla.bla"` to override variables. (But you should use the `inventory` file specify them.)
+* Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable. (But you should use the `inventory` file specify them.)
 * Use `--ask-become-pass` to provide a sudo password.
 
 * Simple test against all hosts
-  * `ansible all -i inventory -m ping`
-  * `ansible all -i inventory -a "/bin/echo hello"`
+  * `ansible all --inventory=inventory -m ping`
+  * `ansible all --inventory=inventory -a "/bin/echo hello"`
 
 * If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
 
@@ -54,4 +48,4 @@ ansible-galaxy install -r requirements.yaml
 
 ### Run this playbook
 
-* Run the playbook via `ansible-playbook -i inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" -i inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
+* Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
