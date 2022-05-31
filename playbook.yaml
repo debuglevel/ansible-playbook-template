@@ -9,11 +9,15 @@
     - name: Write datetime to /tmp/_ANSIBLE_TEST_DATETIME
       ansible.builtin.shell: "date > /tmp/_ANSIBLE_TEST_DATETIME"
 
-# - name: Ensure system configuration
-#   collections:
-#     ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
-#   hosts: all
-#   become: true
-#   roles:
-#     - etckeeper
-#     - utils
+- name: Ensure etckeeper
+  collections:
+    ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
+  hosts: all
+  become: true
+  roles:
+    - etckeeper
+
+- name: Ensure tools
+  hosts: all
+  roles:
+    - utils

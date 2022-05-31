@@ -1,26 +1,67 @@
-- name: Install tools
+- name: Install monitoring tools
   become: true
   ansible.builtin.apt:
     state: present
     update_cache: yes
     cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
-      - tmux
       - htop
-      - mc
-      - net-tools
-      - nano
       - ncdu
-      - nmap
+      - iftop
       - iotop
+      - dstat
+      - nmon
+      - multitail
+  tags:
+    - installation
+
+- name: Install network tools
+  become: true
+  ansible.builtin.apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    pkg:
+      - net-tools
       - wget
       - curl
-      - iftop
+      - aria2
+      - netcat
+      - nmap
+      - ntpdate
+      - mtr
+      - mosh
+      - dnsutils
+  tags:
+    - installation
+
+- name: Install security tools
+  become: true
+  ansible.builtin.apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    pkg:
+      - chkrootkit 
+  tags:
+    - installation
+
+- name: Install misc tools
+  become: true
+  ansible.builtin.apt:
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    pkg:
+      - nano
+      - mc
+      - tmux
+      #- screen
       - pv
       - renameutils
-      - netcat
       - locate
       - aptitude
       - reptyr
+      - secure-delete
   tags:
     - installation
