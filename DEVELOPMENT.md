@@ -11,9 +11,10 @@ Install Vagrant according to <https://www.vagrantup.com/downloads>.
 ### Install hypervisor
 
 To actually use Vagrant, you need a "provider".
-* On Linux, use VirtualBox.
-  * On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
-* On Windows, use Hyper-V. Be aware that you must execute `vagrant` in a shell with administrator privileges.
+
+- On Linux, use VirtualBox.
+  - On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
+- On Windows, use Hyper-V. Be aware that you must execute `vagrant` in a shell with administrator privileges.
 
 ## Vagrant
 
@@ -37,10 +38,16 @@ Destroy and start the virtual machine again via `vagrant destroy -f && vagrant u
 
 ### `yamllint`
 
-* Run `yamllint playbook.yaml` to check for YAML issues.
+- Run `yamllint playbook.yaml` to check for YAML issues.
 
 ### `ansible-lint`
 
-* Install via `pip install ansible-lint` and run `ansible-lint playbook.yaml` to lint a playbook.
+- Install via `pip install ansible-lint` and run `ansible-lint playbook.yaml` to lint a playbook.
 
 See also <https://ansible-lint.readthedocs.io/en/latest/>
+
+## Checking Python files
+
+### `black`
+
+Call `black .` to format Python files.
