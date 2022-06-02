@@ -24,6 +24,8 @@ pip install --upgrade pip # Maybe update pip, as old versions may cause errors
 python -m pip install ansible # Works without "python3.8" as we're in a virtual environment now
 ```
 
+In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
+
 ### Install Ansible dependency stuff
 
 ```sh
