@@ -1,0 +1,48 @@
+# This playbook must be run with the -K option to pass the su/sudo password
+# This playbook must be run with the -k option to pass the ssh password
+
+---
+- name: Set up hosts for bare minimum usage with ansible
+  hosts: all
+  remote_user: tux
+
+  # Do not gather facts, as gathering facts would be executed before fetching ssh host keys.
+  # Gathering facts is executed later by executing the "setup" task
+  gather_facts: no
+
+  tasks:
+  
+  - name: Write ssh host keys to known hosts if not already present
+    become: no
+    connection: local
+    shell: "../misc/authenticate-host.sh {{ inventory_hostname }}"
+    register: script_res
+    changed_when: script_res.rc == 1
+    failed_when: script_res.rc != 1 and script_res.rc != 0
+
+  - name: Install python
+    raw: test -e /usr/bin/python || (apt-get -y update && apt install -y python-minimal)
+    become: yes
+    become_user: root
+    become_method: "{{ 'sudo' if 'ubuntu' in group_names else 'su' }}"
+    register: script
+    changed_when: "'newly installed' in script.stdout"
+
+    # Required for ansible_distribution variable
+  - name: Gathering facts
+    setup:
+
+  - name: Set authorized key
+    become: yes
+    become_user: root
+    become_method: "{{ 'sudo' if ansible_distribution == 'Ubuntu' else 'su' }}"
+    authorized_key:
+      user: "{{item}}"
+      state: present
+      # Use the currently used ssh key
+      key: "{{ lookup('file', ansible_ssh_private_key_file+'.pub') }}"
+      # Use an other ssh key
+      #key: "{{ lookup('file', 'files/ssh.pub') }}"
+    with_items:
+      - root
+      - "{{ ansible_user }}"
