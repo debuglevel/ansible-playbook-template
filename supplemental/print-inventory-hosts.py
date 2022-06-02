@@ -5,6 +5,7 @@
 import sys
 from ansible.parsing.dataloader import DataLoader
 from ansible.inventory.manager import InventoryManager
+import pprint
 
 if __name__ == '__main__':
     if (len(sys.argv) < 1+1):
@@ -12,6 +13,8 @@ if __name__ == '__main__':
         exit(255)
 
     inventory_file_name = sys.argv[1]
+    print(f"Using inventory file '{inventory_file_name}'...", file = sys.stderr)
+
     data_loader = DataLoader()
     inventory = InventoryManager(loader = data_loader,
                                  sources = [inventory_file_name])
@@ -20,4 +23,5 @@ if __name__ == '__main__':
     #    print(host)
 
     for host in inventory.get_hosts():
-        print(host.vars['ansible_host'])
+        print(host)
+        #print(host.vars['ansible_host'])
