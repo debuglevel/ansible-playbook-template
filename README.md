@@ -34,13 +34,12 @@ ansible-galaxy install -r requirements.yaml
 
 Ansible will probably ask you all the time to provide your password. You can use `ssh-agent` to keep it unlocked in memory:
 
-``sh
+```sh
 eval "$(ssh-agent -s)"
 ssh-add # Use default identity file
 
 # ssh-add ~/.ssh/id_ed25519 # Provide another identity file
-
-``
+```
 
 ## Add all hosts to `known_hosts`
 
