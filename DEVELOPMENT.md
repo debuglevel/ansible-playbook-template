@@ -43,7 +43,8 @@ Destroy and start the virtual machine again via `vagrant destroy -f && vagrant u
 
 ### Lint with `ansible-lint`
 
-- Install via `pip install ansible-lint` and run `ansible-lint playbook.yaml` to lint a playbook.
+- Install via `pip install ansible-lint`.
+- Run `ansible-lint playbook.yaml` to check a playbook for common issues.
 
 See also <https://ansible-lint.readthedocs.io/en/latest/>
 
@@ -51,4 +52,5 @@ See also <https://ansible-lint.readthedocs.io/en/latest/>
 
 ### Format with `black`
 
-Call `black .` to format Python files.
+- Install via `pip install black`.
+- Run `black .` to format Python files.
