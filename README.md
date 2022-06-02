@@ -16,6 +16,7 @@ You probably do yourself a favor if you install Ansible in a virtual environment
 
 ```sh
 sudo apt-get update && sudo apt-get install python3-venv # Maybe you need to install the venv module
+#sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
 #python -m venv venv # Create a virtual environment if one does not already exist
 python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
 source venv/bin/activate # Activate the virtual environment
@@ -36,7 +37,9 @@ Ansible will probably ask you all the time to provide your password. You can use
 ``sh
 eval "$(ssh-agent -s)"
 ssh-add # Use default identity file
+
 # ssh-add ~/.ssh/id_ed25519 # Provide another identity file
+
 ``
 
 ## Add all hosts to `known_hosts`
@@ -47,21 +50,22 @@ TODO: Add something to automatically add all in inventory.
 
 ## Use Ansible
 
-* Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
-* Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
-* Use `--verbose` to see detailed output from modules.
-* Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable. (But you should use the `inventory` file specify them.)
-* Use `--ask-become-pass` to provide a sudo password.
+- Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
+- Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
+- Use `--verbose` to see detailed output from modules.
+- Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable. (But you should use the `inventory` file specify them.)
+- Use `--ask-become-pass` to provide a sudo password.
 
-* Simple test against all hosts
-  * `ansible all --inventory=inventory -m ping`
-  * `ansible all --inventory=inventory -a "/bin/echo hello"`
+- Simple test against all hosts
 
-* If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
+  - `ansible all --inventory=inventory -m ping`
+  - `ansible all --inventory=inventory -a "/bin/echo hello"`
 
-* "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
-* "You can use ansible-lint for detailed, Ansible-specific feedback on your playbooks" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
+- If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
+
+- "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
+- "You can use ansible-lint for detailed, Ansible-specific feedback on your playbooks" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
 
 ### Run this playbook
 
-* Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
+- Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
