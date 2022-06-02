@@ -13,6 +13,7 @@
       - dstat
       - nmon
       - multitail
+      - pydf
   tags:
     - installation
 
@@ -33,6 +34,7 @@
       - mtr
       - mosh
       - dnsutils
+      - apt-transport-https
   tags:
     - installation
 
@@ -44,6 +46,23 @@
     cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
       - chkrootkit
+  tags:
+    - installation
+
+- name: Install compressions tools
+  become: true
+  ansible.builtin.apt:
+    state: present
+    update_cache: true
+    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    pkg:
+      - zip
+      - pigz  # parallel gz
+      - pbzip2  # parallel bz2
+      - p7zip-full
+      - xz-utils
+      - zstd
+      - dtrx
   tags:
     - installation
 
@@ -64,5 +83,6 @@
       - aptitude
       - reptyr
       - secure-delete
+      - git
   tags:
     - installation
