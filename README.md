@@ -38,7 +38,7 @@ TODO: Add something to automatically add all in inventory.
 
 ## Authorize your SSH key on the hosts
 
-Running `ansible` requires that your SSH key is in the `.ssh/authorized_keys` of the `ansible_user` specified in `inventory`.
+Running `ansible` requires that your SSH key is in each `.ssh/authorized_keys` of the `ansible_user` of each host specified in `inventory`.
 
 For now, this template does not automate copying it into this file.
 
