@@ -38,7 +38,8 @@ Destroy and start the virtual machine again via `vagrant destroy -f && vagrant u
 
 ### Lint with `yamllint`
 
-- Run `yamllint playbook.yaml` to check for YAML issues.
+- Install via `pip install yamllint`.
+- Run `yamllint .` to check for YAML issues.
 
 ### Lint with `ansible-lint`
 
