@@ -1,9 +1,10 @@
+---
 - name: Install monitoring tools
   become: true
   ansible.builtin.apt:
     state: present
-    update_cache: yes
-    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    update_cache: true
+    cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
       - htop
       - ncdu
@@ -19,8 +20,8 @@
   become: true
   ansible.builtin.apt:
     state: present
-    update_cache: yes
-    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    update_cache: true
+    cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
       - net-tools
       - wget
@@ -39,10 +40,10 @@
   become: true
   ansible.builtin.apt:
     state: present
-    update_cache: yes
-    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    update_cache: true
+    cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
-      - chkrootkit 
+      - chkrootkit
   tags:
     - installation
 
@@ -50,13 +51,13 @@
   become: true
   ansible.builtin.apt:
     state: present
-    update_cache: yes
-    cache_valid_time: 3600 # Do not update if already done in the last hour.
+    update_cache: true
+    cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
       - nano
       - mc
       - tmux
-      #- screen
+      # - screen
       - pv
       - renameutils
       - locate
