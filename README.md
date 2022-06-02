@@ -30,6 +30,12 @@ python -m pip install ansible # Works without "python3.8" as we're in a virtual 
 ansible-galaxy install -r requirements.yaml
 ```
 
+## Add all hosts to `known_hosts`
+
+If you never connected to the hosts via SSH before, SSH will ask you to verify their fingerprint.
+
+TODO: Add something to automatically add all in inventory.
+
 ## Use `ssh-agent`
 
 Ansible will probably ask you all the time to provide your password. You can use `ssh-agent` to keep it unlocked in memory:
@@ -40,12 +46,6 @@ ssh-add # Use default identity file
 
 # ssh-add ~/.ssh/id_ed25519 # Provide another identity file
 ```
-
-## Add all hosts to `known_hosts`
-
-If you never connected to the hosts via SSH before, SSH will ask you to verify their fingerprint.
-
-TODO: Add something to automatically add all in inventory.
 
 ## Use Ansible
 
