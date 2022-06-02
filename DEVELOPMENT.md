@@ -36,11 +36,11 @@ Destroy and start the virtual machine again via `vagrant destroy -f && vagrant u
 
 ## Checking Ansible playbooks
 
-### `yamllint`
+### Lint with `yamllint`
 
 - Run `yamllint playbook.yaml` to check for YAML issues.
 
-### `ansible-lint`
+### Lint with `ansible-lint`
 
 - Install via `pip install ansible-lint` and run `ansible-lint playbook.yaml` to lint a playbook.
 
@@ -48,6 +48,6 @@ See also <https://ansible-lint.readthedocs.io/en/latest/>
 
 ## Checking Python files
 
-### `black`
+### Format with `black`
 
 Call `black .` to format Python files.
