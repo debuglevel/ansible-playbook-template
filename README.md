@@ -36,6 +36,12 @@ If you never connected to the hosts via SSH before, SSH will ask you to verify t
 
 TODO: Add something to automatically add all in inventory.
 
+## Authorize your SSH key on the hosts
+
+Running `ansible` requires that your SSH key is in the `.ssh/authorized_keys` of the `ansible_user` specified in `inventory`.
+
+For now, this template does not automate copying it into this file.
+
 ## Use `ssh-agent`
 
 Ansible will probably ask you all the time to provide your password. You can use `ssh-agent` to keep it unlocked in memory:
