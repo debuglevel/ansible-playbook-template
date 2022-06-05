@@ -54,3 +54,25 @@ See also <https://ansible-lint.readthedocs.io/en/latest/>
 
 - Install via `pip install black`.
 - Run `black .` to format Python files.
+
+## Merge upstream git template
+
+- This assumes you leave `master` alone and do all your work in a separate branch (e.g. `home`).
+- Your `git remote` should contain the `upstream` remote:
+
+```
+origin  git@github.com:debuglevel/ansible-home.git (fetch)
+origin  git@github.com:debuglevel/ansible-home.git (push)
+upstream        git@github.com:debuglevel/ansible-template.git (fetch)
+upstream        git@github.com:debuglevel/ansible-template.git (push)
+```
+
+- Get data from the upstream branches: `git fetch upstream`.
+- You now have a `upstream/master` branch: `git branch -a`
+- Checkout your `master` branch: `git checkout master`
+- Merge `upstream/master` into your `master`: `git merge upstream/master`
+- Checkout your development branch: `git checkout home`
+- Merge `master`: `git merge master`
+- You may have conflicts to resolve; fix them and commit the changes.
+
+TL;DR: `git fetch upstream && git checkout master && git merge upstream/master && git checkout home && git merge master && echo "== Check for conflicts, resolve them, commit"`
