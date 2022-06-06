@@ -57,6 +57,7 @@
     cache_valid_time: 3600  # Do not update if already done in the last hour.
     pkg:
       - zip
+      - unzip
       - pigz  # parallel gz
       - pbzip2  # parallel bz2
       - p7zip-full
