@@ -49,7 +49,7 @@
   tags:
     - installation
 
-- name: Install compressions tools
+- name: Install compression tools
   become: true
   ansible.builtin.apt:
     state: present
