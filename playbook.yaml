@@ -5,7 +5,7 @@
     - name: Ensure file /tmp/_ANSIBLE_TEST
       ansible.builtin.file:
         path: /tmp/_ANSIBLE_TEST
-        state: file
+        state: touch
     - name: Write datetime to /tmp/_ANSIBLE_TEST_DATETIME
       ansible.builtin.shell: "date > /tmp/_ANSIBLE_TEST_DATETIME"
 

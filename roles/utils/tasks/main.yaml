@@ -49,7 +49,7 @@
   tags:
     - installation
 
-- name: Install compressions tools
+- name: Install compression tools
   become: true
   ansible.builtin.apt:
     state: present
@@ -63,7 +63,7 @@
       - p7zip-full
       - xz-utils
       - zstd
-      - dtrx
+      # - dtrx  # Not available on Ubuntu 20.04 (focal)
   tags:
     - installation
 

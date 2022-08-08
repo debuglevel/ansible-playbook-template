@@ -1,3 +1,6 @@
+# Caution:
+# - Booleans must be "True"/"False". Any other notation will be interpreted as string!
+
 delta.huwi.rocks    ansible_user=marc
 dbglvl1.uber.space  ansible_user=dbglvl1
 dbglvl2.uber.space  ansible_user=dbglvl2
