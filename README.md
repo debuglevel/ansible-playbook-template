@@ -36,7 +36,13 @@ ansible-galaxy install -r requirements.yaml
 
 If you never connected to the hosts via SSH before, SSH will ask you to verify their fingerprint.
 
-TODO: Add something to automatically add all in inventory.
+This snippet should do the trick, although it actually might be a security risk as it just accepts all SSH fingerprints:
+
+```bash
+cd supplemental
+./print-inventory-hosts.py ../inventory | ./authenticate-hosts.sh
+cd ..
+```
 
 ## Authorize your SSH key on the hosts
 
