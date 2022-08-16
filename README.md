@@ -21,7 +21,7 @@ sudo apt-get update && sudo apt-get install python3-venv # Maybe you need to ins
 python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
 source venv/bin/activate # Activate the virtual environment
 pip install --upgrade pip # Maybe update pip, as old versions may cause errors
-python -m pip install ansible # Works without "python3.8" as we're in a virtual environment now
+pip install ansible # Works without "python3.8" as we're in a virtual environment now
 ```
 
 In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
