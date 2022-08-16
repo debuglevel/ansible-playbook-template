@@ -104,5 +104,5 @@ To not only run `default`, but just all scenarios:
 
 ```bash
 cd roles/vhosts
-molecule test all
+molecule test --all
 ```
