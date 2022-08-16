@@ -98,6 +98,8 @@ molecule init scenario -r vhosts -d docker # To create tests using the Ansible v
 molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra # To create tests using the testinfra verifier (I assume it to be less cumbersome than writing tests using Ansible)
 ```
 
+Note: Idempotence is tested with any verifier as it is part of the `idempotence` step. You therefore do not need an extra `ansible` verifier to ensure it.
+
 ### Run all test scenarios
 
 To not only run `default`, but just all scenarios:
