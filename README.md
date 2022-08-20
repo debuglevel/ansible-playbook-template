@@ -21,7 +21,8 @@ sudo apt-get update && sudo apt-get install -f python3-venv # Maybe you need to 
 python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
 source venv/bin/activate # Activate the virtual environment
 pip install --upgrade pip # Maybe update pip, as old versions may cause errors
-python -m pip install ansible # Works without "python3.8" as we're in a virtual environment now
+pip install ansible # Works without "python3.8" as we're in a virtual environment now
+pip install molecule[docker] pytest-testinfra # If you want to run molecule tests
 ```
 
 In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
@@ -82,3 +83,28 @@ ssh-add # Use default identity file
 ### Run this playbook
 
 - Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
+
+## Tests
+
+### Create a new role with tests
+
+TODO
+
+### Create tests in an existing role
+
+```bash
+cd roles/vhosts
+molecule init scenario -r vhosts -d docker # To create tests using the Ansible verifier
+molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra # To create tests using the testinfra verifier (I assume it to be less cumbersome than writing tests using Ansible)
+```
+
+Note: Idempotence is tested with any verifier as it is part of the `idempotence` step. You therefore do not need an extra `ansible` verifier to ensure it.
+
+### Run all test scenarios
+
+To not only run `default`, but just all scenarios:
+
+```bash
+cd roles/vhosts
+molecule test --all
+```
