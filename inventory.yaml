@@ -1,0 +1,37 @@
+all:
+  vars:
+    # TODO: Use a "ansible" user so we can distinguish between CI/CD and manual work.
+    ansible_user: marc
+  children:
+    hosts:
+      dbglvl1.uber.space:
+        ansible_user: dbglvl1
+      dbglvl2.uber.space:
+        ansible_user: dbglvl2
+
+    # Categorized into "what", "where", and "when" as suggested by <https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-in-multiple-groups>
+
+    # What - An application, stack or microservice (for example, database servers, web servers, and so on).
+    helloworld: # Write a "hello world" mark to /tmp/
+      delta.huwi.rocks:
+      dbglvl1.uber.space:
+      dbglvl2.uber.space:
+
+    root_server: # Servers which we have root access; i.e. no shared servers.
+      delta.huwi.rocks:
+
+    # Where - A datacenter or region, to talk to local DNS, storage, and so on (for example, east, west).
+    uberspace:
+      hosts:
+        dbglvl1.uber.space:
+        dbglvl2.uber.space:
+
+    home:
+      hosts:
+
+    university:
+      hosts:
+        delta.huwi.rocks:
+
+    # When - The development stage, to avoid testing on production resources (for example, prod, test).
+    # TODO: do we need this?
