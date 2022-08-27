@@ -64,7 +64,7 @@ ssh-add # Use default identity file
 
 ## Use Ansible
 
-- Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
+- Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`. Multiple inventories are allowed. Use `--inventory=localhost,` to target a host without an inventory.
 - Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
 - Use `--verbose` to see detailed output from modules.
 - Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable. (But you should use the `inventory` file specify them.)
