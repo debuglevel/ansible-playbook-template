@@ -4,7 +4,7 @@
   ansible.builtin.apt:
     state: present
     update_cache: true
-    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - htop
       - ncdu
@@ -22,7 +22,7 @@
   ansible.builtin.apt:
     state: present
     update_cache: true
-    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - net-tools
       - wget
@@ -43,7 +43,7 @@
   ansible.builtin.apt:
     state: present
     update_cache: true
-    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - chkrootkit
   tags:
@@ -54,12 +54,12 @@
   ansible.builtin.apt:
     state: present
     update_cache: true
-    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - zip
       - unzip
-      - pigz  # parallel gz
-      - pbzip2  # parallel bz2
+      - pigz # parallel gz
+      - pbzip2 # parallel bz2
       - p7zip-full
       - xz-utils
       - zstd
@@ -72,7 +72,7 @@
   ansible.builtin.apt:
     state: present
     update_cache: true
-    cache_valid_time: 3600  # Do not update if already done in the last hour.
+    cache_valid_time: 3600 # Do not update if already done in the last hour.
     pkg:
       - nano
       - mc

@@ -7,11 +7,14 @@
         path: /tmp/_ANSIBLE_TEST
         state: touch
     - name: Write datetime to /tmp/_ANSIBLE_TEST_DATETIME
-      ansible.builtin.shell: "date > /tmp/_ANSIBLE_TEST_DATETIME"
+      ansible.builtin.shell: date > /tmp/_ANSIBLE_TEST_DATETIME
 
 - name: Ensure etckeeper
   collections:
-    ["debops.debops", "debops.roles01", "debops.roles02", "debops.roles03"]
+    - debops.debops
+    - debops.roles01
+    - debops.roles02
+    - debops.roles03
   hosts: root_server
   become: true
   roles:

@@ -1,3 +1,4 @@
+---
 all:
   vars:
     # TODO: Use a "ansible" user so we can distinguish between CI/CD and manual work.
