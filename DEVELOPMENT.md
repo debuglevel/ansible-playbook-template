@@ -1,5 +1,9 @@
 # Development notes
 
+## Pull changes from `debuglevel/ansible-template`
+
+Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git` and retrieve repository via `git pull upstream`. Merge into your current branch via `git merge upstream/master`.
+
 ## Tests
 
 ### Lightweight tests / linting
