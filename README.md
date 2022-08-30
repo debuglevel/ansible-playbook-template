@@ -82,7 +82,7 @@ ssh-add # Use default identity file
 
 ### Run this playbook
 
-- Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path)
+- Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbooks/playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbooks/playbook.yaml` if you've got a space in your path)
 
 ## Tests
 
