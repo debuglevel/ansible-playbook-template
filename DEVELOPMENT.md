@@ -4,6 +4,8 @@
 
 Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git` and retrieve repository via `git pull upstream`. Merge into your current branch via `git merge upstream/master`.
 
+TODO: This is doubled.
+
 ## Tests
 
 ### Lightweight tests / linting
