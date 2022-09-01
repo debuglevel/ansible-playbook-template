@@ -39,6 +39,10 @@ cd roles/vhosts
 molecule test --all
 ```
 
+### Check and diff mode
+
+Run `ansible-playbook` against a host with `--check` for read-only and `-diff` to display changes: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html>
+
 ## Requirements
 
 ### Install Vagrant
