@@ -41,7 +41,7 @@ This snippet should do the trick, although it actually might be a security risk 
 
 ```bash
 cd supplemental
-./print-inventory-hosts.py ../inventory | ./authenticate-hosts.sh
+./print-inventory-hosts.py ../inventory.yaml | ./authenticate-hosts.sh
 cd ..
 ```
 
