@@ -1,6 +1,12 @@
-# Ansible Playbook Template
+# Ansible Playbook for BigBlueButton
 
-This repository provides a template for Ansible projects.
+This Ansible playbook deploys a BigBlueButton environment:
+
+* BigBlueButton via `bbb-install.sh` on a "throw-away" backend host (i.e. has no persistence and could be resetted and deployed every night).
+* Greenlight as frontend on a persistent host; access via <https://HOST/> and <https://HOST/b>.
+* [greenstatic/bigbluebutton-monitoring](https://github.com/greenstatic/bigbluebutton-monitoring) as Prometheus exporter on the backend host on <https://HOST/bigbluebutton-monitoring/>.
+* [greenstatic/bigbluebutton-exporter](https://bigbluebutton-exporter.greenstatic.dev/) as Prometheus exporter on the backend host on <https://HOST/bigbluebutton-exporter/metrics>.
+* [prometheus/node_exporter](https://github.com/prometheus/node_exporter) as Prometheus exporter on every host on <https://HOST/node-exporter/metrics>.
 
 ## Install Ansible
 
@@ -35,7 +41,7 @@ In WSL, it might be better to not create the virtual environment under `/mnt/c` 
 ansible-galaxy install -r requirements.yaml
 ```
 
-## Add all hosts to `known_hosts`
+## Add all hosts to `~/.ssh/known_hosts`
 
 If you never connected to the hosts via SSH before, SSH will ask you to verify their fingerprint.
 
@@ -68,22 +74,33 @@ ssh-add # Use default identity file
 
 ## Use Ansible
 
-- Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`. Multiple inventories are allowed. Use `--inventory=localhost,` to specify a host without an inventory.
-- Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
-- Use `--verbose` to see detailed output from modules.
-- Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable.
-- Use `--ask-become-pass` to provide a sudo password.
+* Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
+Multiple inventories are allowed.
+Use `--inventory=localhost,` to specify a host without an inventory.
+* Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username).
+But you should probably configure `ansible_user` this in your inventory instead.
+* Use `--verbose` to see detailed output from modules.
+* Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable.
+For a more permanent solution you should use the `*_vars` files.
+* Use `--ask-become-pass` to let Ansible ask for the sudo password.
 
-- Simple test against all hosts
+### CAVEATs
 
-  - `ansible all --inventory=inventory -m ping`
-  - `ansible all --inventory=inventory -a "/bin/echo hello"`
+If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
 
-- If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead, because the space seems to kill the shebang.
+`ansible.cfg` will not be used if the current directory is world-writable.
+As this is not too easy to change on WSL, you can just set ENV `ANSIBLE_CONFIG="./ansible.cfg"`.
 
-- "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
-- "You can use ansible-lint for detailed, Ansible-specific feedback on your playbooks" (<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>)
+### Test configuration
+
+To test your configuration, issue a simple command to all hosts in `inventory`:
+
+```sh
+ansible all --inventory=inventory -m ping
+ansible all --inventory=inventory -a "/bin/echo hello"
+```
 
 ### Run this playbook
 
-- Run the playbook via `ansible-playbook --inventory=inventory --ask-become-pass playbooks/playbook.yaml` (or `python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbooks/playbook.yaml` if you've got a space in your path)
+* Run the playbook via `ANSIBLE_CONFIG="./ansible.cfg" ansible-playbook --inventory=inventory --ask-become-pass playbook.yaml`.
+  * Use `ANSIBLE_CONFIG="./ansible.cfg" python3.8 "$(which ansible-playbook)" --inventory=inventory --ask-become-pass playbook.yaml` if you've got a space in your path.
