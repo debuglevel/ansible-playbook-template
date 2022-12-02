@@ -4,7 +4,9 @@ This repository provides a template for Ansible projects.
 
 ## Install Ansible
 
-You have to install `ansible` on a controller node. This just might just be a laptop with a recent version of Python. Python on Windows is not supported - just use WSL instead.
+You have to install Ansible on a controller node (i.e. the host you want Ansible run from; most likely your workstation or a CI/CD container).
+This might just be a laptop with a recent version of Python.
+Python on Windows is not supported - just use WSL instead.
 
 See also <https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
 
@@ -27,7 +29,7 @@ pip install molecule[docker] pytest-testinfra yamllint ansible-lint # If you wan
 
 In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
 
-### Install Ansible dependency stuff
+### Install Ansible dependencies
 
 ```sh
 ansible-galaxy install -r requirements.yaml
@@ -40,9 +42,10 @@ If you never connected to the hosts via SSH before, SSH will ask you to verify t
 This snippet should do the trick, although it actually might be a security risk as it just accepts all SSH fingerprints:
 
 ```bash
-cd supplemental
-./print-inventory-hosts.py ../inventory.yaml | ./authenticate-hosts.sh
-cd ..
+for i in inventory*; do
+  echo "== Processing $i..."
+  supplemental/print-inventory-hosts.py $i | supplemental/authenticate-hosts.sh
+done
 ```
 
 ## Authorize your SSH key on the hosts
@@ -53,7 +56,8 @@ For now, this template does not automate copying it into this file.
 
 ## Use `ssh-agent`
 
-Ansible will probably ask you all the time to provide your password. You can use `ssh-agent` to keep it unlocked in memory:
+Ansible will probably ask you all the time to provide your password.
+You should use `ssh-agent` to keep it unlocked in memory:
 
 ```sh
 eval "$(ssh-agent -s)"
@@ -67,7 +71,7 @@ ssh-add # Use default identity file
 - Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`. Multiple inventories are allowed. Use `--inventory=localhost,` to specify a host without an inventory.
 - Use `--remote-user=user` to use the `user` user to connect via SSH (instead of the current user's username)
 - Use `--verbose` to see detailed output from modules.
-- Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable. (But you should use the `inventory` file specify them.)
+- Use `--e "letsencrypt_email=bla@bla.bla"` to override a variable.
 - Use `--ask-become-pass` to provide a sudo password.
 
 - Simple test against all hosts

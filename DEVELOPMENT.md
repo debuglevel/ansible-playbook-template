@@ -1,20 +1,74 @@
 # Development notes
 
-## Pull changes from `debuglevel/ansible-template`
+## Update subtrees
 
-Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git` and retrieve repository via `git pull upstream`. Merge into your current branch via `git merge upstream/master`.
+Some git repositories might be included as subtrees.
+Use `update-git-subtrees.sh` to update them.
 
-TODO: This is doubled.
+## Merge upstream changes from `debuglevel/ansible-template`
 
-## Tests
+This template is based on `debuglevel/ansible-template`.
 
-### Lightweight tests / linting
+You can merge upstream changes into your current branch:
 
-* Lint YAML with `yamllint .`
-* Check Ansible syntax with `ansible-playbook --syntax-check`
-* Check for bad practices with `ansible-lint` or reformat with `ansible-lint --write`
+1. Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git`.
+2. Retrieve the repository via `git pull upstream`.
+3. Merge into the current branch via `git merge upstream/master`.
+
+## Merge upstream git template (alternative/additional notes)
+
+* This assumes you leave `master` alone and do all your work in a separate branch (e.g. `home`).
+* Your `git remote` should contain the `upstream` remote:
+
+```plain
+origin          git@github.com:debuglevel/ansible-home.git (fetch)
+origin          git@github.com:debuglevel/ansible-home.git (push)
+upstream        git@github.com:debuglevel/ansible-template.git (fetch)
+upstream        git@github.com:debuglevel/ansible-template.git (push)
+```
+
+* Get data from the upstream branches: `git fetch upstream`.
+* You now have a `upstream/master` branch: `git branch -a`
+* Checkout your `master` branch: `git checkout master`
+* Merge `upstream/master` into your `master`: `git merge upstream/master`
+* Checkout your development branch: `git checkout home`
+* Merge `master`: `git merge master`
+* You may have conflicts to resolve; fix them and commit the changes.
+
+TL;DR: `git fetch upstream && git checkout master && git merge upstream/master && git checkout home && git merge master && echo "== Check for conflicts, resolve them, commit"`
+
+## Tests, Checks, Linting et cetera
+
+Ansible stuff can be linted, verified, checked, tested in various ways.
+
+### YAML linting with `yamllint`
+
+Install via `pip install yamllint`.
+Lint the plain YAML with `yamllint .`.
+It is configured in `.yamllint`.
+
+### Ansible linting with `ansible-lint`
+
+Install via `pip install ansible-lint`.
+
+* Run `ansible-lint playbook.yaml` (or just `ansible-lint`) to check a playbook for common issues or bad practices.
+* Reformat it with `ansible-lint --write`.
+
+See also
+
+* <https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>
+* <https://ansible-lint.readthedocs.io/en/latest/>
+
+### Ansible checks
+
+Check Ansible syntax with `ansible-playbook --syntax-check`:
+
+> "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check"
+(<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint>).
 
 ### Molecule
+
+Molecule is about what Unit-Tests would do on a programming language.
 
 #### Create a new role with tests
 
@@ -24,24 +78,24 @@ TODO
 
 ```bash
 cd roles/vhosts
-molecule init scenario -r vhosts -d docker # To create tests using the Ansible verifier
-molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra # To create tests using the testinfra verifier (I assume it to be less cumbersome than writing tests using Ansible)
+molecule init scenario -r vhosts -d docker  # To create tests using the Ansible verifier. You probably do not want this unless you are really in love with Ansible.
+molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra  # To create tests using the testinfra verifier, which is just a bit of Python.
 ```
 
-Note: Idempotence is tested with any verifier as it is part of the `idempotence` step. You therefore do not need an extra `ansible` verifier to ensure it.
+Note: Idempotence is tested with *any* verifier, as it is part of the `idempotence` step.
+You therefore do not need an extra `ansible` verifier to ensure it.
 
-#### Run all test scenarios
-
-To not only run `default`, but just all scenarios:
+#### Run test scenarios
 
 ```bash
 cd roles/vhosts
 molecule test --all
 ```
 
-### Check and diff mode
+### Formatting Python files with `black`
 
-Run `ansible-playbook` against a host with `--check` for read-only and `-diff` to display changes: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_checkmode.html>
+* Install via `pip install black`.
+* Run `black .` to format Python files.
 
 ## Requirements
 
@@ -55,15 +109,17 @@ Install Vagrant according to <https://www.vagrantup.com/downloads>.
 
 To actually use Vagrant, you need a "provider".
 
-- On Linux, use VirtualBox.
-  - On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
-- On Windows, use Hyper-V. Be aware that you must execute `vagrant` in a shell with administrator privileges.
+* On Linux, use VirtualBox.
+  * On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
+* On Windows, use Hyper-V.
+Be aware that you must execute `vagrant` in a shell with administrator privileges.
 
 ## Vagrant
 
 ### Start virtual machine and run Ansible playbook
 
-Create and boot a virtual machine via `vagrant up`. This will use `Vagrantfile` which in turn runs Ansible to test (or at least execute) the playbook.
+Create and boot a virtual machine via `vagrant up`.
+This will use `Vagrantfile` which in turn runs Ansible to test (or at least execute) the playbook.
 
 ### Run provision (i.e. Ansible playbook) again
 
@@ -77,45 +133,9 @@ Shut down and destroy the virtual machine via `vagrant destroy`.
 
 Destroy and start the virtual machine again via `vagrant destroy -f && vagrant up`.
 
-## Checking Ansible playbooks
+## Turn into a Collection
 
-### Lint with `yamllint`
+This repository could be turned into a collection according to this guide: <https://docs.ansible.com/ansible-core/devel/dev_guide/developing_collections_structure.html>
 
-- Install via `pip install yamllint`.
-- Run `yamllint .` to check for YAML issues.
-
-### Lint with `ansible-lint`
-
-- Install via `pip install ansible-lint`.
-- Run `ansible-lint playbook.yaml` to check a playbook for common issues.
-
-See also <https://ansible-lint.readthedocs.io/en/latest/>
-
-## Checking Python files
-
-### Format with `black`
-
-- Install via `pip install black`.
-- Run `black .` to format Python files.
-
-## Merge upstream git template
-
-- This assumes you leave `master` alone and do all your work in a separate branch (e.g. `home`).
-- Your `git remote` should contain the `upstream` remote:
-
-```
-origin  git@github.com:debuglevel/ansible-home.git (fetch)
-origin  git@github.com:debuglevel/ansible-home.git (push)
-upstream        git@github.com:debuglevel/ansible-template.git (fetch)
-upstream        git@github.com:debuglevel/ansible-template.git (push)
-```
-
-- Get data from the upstream branches: `git fetch upstream`.
-- You now have a `upstream/master` branch: `git branch -a`
-- Checkout your `master` branch: `git checkout master`
-- Merge `upstream/master` into your `master`: `git merge upstream/master`
-- Checkout your development branch: `git checkout home`
-- Merge `master`: `git merge master`
-- You may have conflicts to resolve; fix them and commit the changes.
-
-TL;DR: `git fetch upstream && git checkout master && git merge upstream/master && git checkout home && git merge master && echo "== Check for conflicts, resolve them, commit"`
+But this also puts `playbook.yaml` into a `playbooks/` subdirectory which does not work well unless you actually install the collection -- which I guess is just some additional PITA during development (maybe a symlink in ~/.ansible/collection or whatever to this directory would also do the trick).
+Unless this gives you some real benefit, you probably should not do it.
