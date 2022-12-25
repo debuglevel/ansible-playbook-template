@@ -1,12 +1,8 @@
-# Ansible Playbook for BigBlueButton
+# Ansible Playbook for TEMPLATE
 
-This Ansible playbook deploys a BigBlueButton environment:
+This Ansible playbook deploys a TEMPLATE environment:
 
-* BigBlueButton via `bbb-install.sh` on a "throw-away" backend host (i.e. has no persistence and could be resetted and deployed every night).
-* Greenlight as frontend on a persistent host; access via <https://HOST/> and <https://HOST/b>.
-* [greenstatic/bigbluebutton-monitoring](https://github.com/greenstatic/bigbluebutton-monitoring) as Prometheus exporter on the backend host on <https://HOST/bigbluebutton-monitoring/>.
-* [greenstatic/bigbluebutton-exporter](https://bigbluebutton-exporter.greenstatic.dev/) as Prometheus exporter on the backend host on <https://HOST/bigbluebutton-exporter/metrics>.
-* [prometheus/node_exporter](https://github.com/prometheus/node_exporter) as Prometheus exporter on every host on <https://HOST/node-exporter/metrics>.
+* ...
 
 ## Install Ansible
 
