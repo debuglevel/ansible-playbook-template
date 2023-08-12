@@ -6,11 +6,14 @@ This Ansible playbook deploys a TEMPLATE environment:
 
 ## Install Ansible
 
-You have to install Ansible on a controller node (i.e. the host you want Ansible run from; most likely your workstation or a CI/CD container).
-This might just be a laptop with a recent version of Python.
-Python on Windows is not supported - just use WSL instead.
+You have to install Ansible on a control node (i.e. the host you want Ansible to run from; most likely your workstation or a CI/CD container).
+This might just be a machine with a recent version of Python.
+Python on Windows is not supported -- just use WSL instead.
 
 See also <https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html>
+
+For control node requirements, see: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements
+For managed node requirements, see: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#managed-node-requirements
 
 If you're lower than Python 3.8, install it: <https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04>
 
@@ -21,13 +24,16 @@ You probably do yourself a favor if you install Ansible in a virtual environment
 ```sh
 sudo apt-get update && sudo apt-get install -f python3-venv  # Maybe you need to install the venv module
 #sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv  # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
+
 #python -m venv venv # Create a virtual environment if one does not already exist
 python3.8 -m venv venv  # ... if your default Python is too old (e.g. Ubuntu 18.04)
 source venv/bin/activate  # Activate the virtual environment
+
 pip install --upgrade pip  # Maybe update pip, as old versions may cause errors
+
+pip install -r requirements.txt  # Install all python dependencies listed below
 pip install ansible  # Works without "python3.8" as we're in a virtual environment now
 pip install molecule[docker] pytest-testinfra yamllint ansible-lint  # If you want to run linting/tests
-pip install -r requirements.txt  # Install python dependencies
 ```
 
 In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
