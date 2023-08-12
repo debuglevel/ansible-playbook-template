@@ -10,6 +10,7 @@
       - ncdu
       - iftop
       - iotop
+      - iotop-c
       - dstat
       - nmon
       - multitail
