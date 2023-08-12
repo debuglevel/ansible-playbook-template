@@ -19,14 +19,14 @@ If you're lower than Python 3.8, install it: <https://askubuntu.com/questions/11
 You probably do yourself a favor if you install Ansible in a virtual environment:
 
 ```sh
-sudo apt-get update && sudo apt-get install -f python3-venv # Maybe you need to install the venv module
-#sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
+sudo apt-get update && sudo apt-get install -f python3-venv  # Maybe you need to install the venv module
+#sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv  # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
 #python -m venv venv # Create a virtual environment if one does not already exist
-python3.8 -m venv venv # ... if your default Python is too old (e.g. Ubuntu 18.04)
-source venv/bin/activate # Activate the virtual environment
-pip install --upgrade pip # Maybe update pip, as old versions may cause errors
-pip install ansible # Works without "python3.8" as we're in a virtual environment now
-pip install molecule[docker] pytest-testinfra yamllint ansible-lint # If you want to run linting/tests
+python3.8 -m venv venv  # ... if your default Python is too old (e.g. Ubuntu 18.04)
+source venv/bin/activate  # Activate the virtual environment
+pip install --upgrade pip  # Maybe update pip, as old versions may cause errors
+pip install ansible  # Works without "python3.8" as we're in a virtual environment now
+pip install molecule[docker] pytest-testinfra yamllint ansible-lint  # If you want to run linting/tests
 pip install -r requirements.txt  # Install python dependencies
 ```
 
