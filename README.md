@@ -27,6 +27,7 @@ source venv/bin/activate # Activate the virtual environment
 pip install --upgrade pip # Maybe update pip, as old versions may cause errors
 pip install ansible # Works without "python3.8" as we're in a virtual environment now
 pip install molecule[docker] pytest-testinfra yamllint ansible-lint # If you want to run linting/tests
+pip install -r requirements.txt  # Install python dependencies
 ```
 
 In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
