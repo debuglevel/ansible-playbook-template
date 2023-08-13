@@ -8,6 +8,5 @@
 SCRIPTPATH=$(dirname "$(readlink -f "$0")")
 while read host
 do
-    echo "Processing $host ..."
-    "$SCRIPTPATH"/authenticate-host.sh $host
+    $SCRIPTPATH/authenticate-host.sh $host
 done < "${1:-/dev/stdin}"

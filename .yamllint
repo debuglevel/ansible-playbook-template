@@ -17,7 +17,8 @@ rules:
     level: error
   comments: disable
   comments-indentation: disable
-  document-start: disable
+  document-start:
+    present: true
   empty-lines:
     max: 3
     level: error

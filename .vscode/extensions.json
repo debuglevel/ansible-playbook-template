@@ -1,5 +1,9 @@
 {
     "recommendations": [
-        "redhat.ansible"
+        "coolbear.systemd-unit-file",
+        "redhat.ansible",
+        "ms-azuretools.vscode-docker",
+        "samuelcolvin.jinjahtml",
+        "editorconfig.editorconfig"
     ]
 }
