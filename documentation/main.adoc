@@ -1,0 +1,25 @@
+= Ansible Playbook for TEMPLATE
+:toc:
+:toclevels: 999
+:sectnums:
+:sectnumlevels: 999
+:relative_imagesdir: .
+:imagesdir: .
+
+:module: Usage
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..
+
+:module: Development
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..
+
+:module: todo
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..

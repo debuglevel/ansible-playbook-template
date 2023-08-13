@@ -1,0 +1,22 @@
+= Vagrant
+ifndef::relative_imagesdir[]
+:relative_imagesdir: .
+endif::[]
+:toc:
+
+== Start virtual machine and run Ansible playbook
+
+Create and boot a virtual machine via `vagrant up`.
+This will use `Vagrantfile` which in turn runs Ansible to test (or at least execute) the playbook.
+
+== Run provision (i.e. Ansible playbook) again
+
+Run the provision scripts again via `vagrant provision` without recreating the virtual machine.
+
+== Destroy virtual machine
+
+Shut down and destroy the virtual machine via `vagrant destroy`.
+
+== Destroy and start virtual machine
+
+Destroy and start the virtual machine again via `vagrant destroy -f && vagrant up`.

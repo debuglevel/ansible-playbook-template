@@ -1,0 +1,38 @@
+= Usage
+ifndef::relative_imagesdir[]
+:relative_imagesdir: .
+endif::[]
+:toc:
+
+This Ansible playbook deploys a TEMPLATE environment:
+
+* ...
+
+:module: Hosts preparations
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..
+
+:module: Controller preparation
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..
+
+== Run this playbook
+
+* Run the playbook via `ANSIBLE_CONFIG="./ansible.cfg" ansible-playbook --inventory=inventory.yaml --ask-vault-pass playbook.yaml`.
+ ** Use `ANSIBLE_CONFIG="./ansible.cfg" python3.8 "$(which ansible-playbook)" --inventory=inventory.yaml --ask-vault-pass playbook.yaml` if you've got a space in your path.
+
+:module: Deployment
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..
+
+:module: Tags
+:relative_imagesdir: {relative_imagesdir}/{module}
+:imagesdir: {relative_imagesdir}
+include::{module}/{module}.adoc[leveloffset=+1]
+:relative_imagesdir: {relative_imagesdir}/..

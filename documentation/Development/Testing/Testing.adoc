@@ -1,0 +1,63 @@
+= Tests, Checks, Linting et cetera
+ifndef::relative_imagesdir[]
+:relative_imagesdir: .
+endif::[]
+:toc:
+
+Ansible stuff can be linted, verified, checked, tested in various ways.
+
+== YAML linting with `yamllint`
+
+* Install via `pip install yamllint`.
+* Lint the plain YAML with `yamllint .`.
+* It is configured in `.yamllint`.
+
+== Ansible linting with `ansible-lint`
+
+* Install via `pip install ansible-lint`.
+* Run `ansible-lint playbook.yaml` (or just `ansible-lint`) to check a playbook for common issues or bad practices.
+* Reformat it with `ansible-lint --write`.
+
+See also
+
+* https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint
+* https://ansible-lint.readthedocs.io/en/latest/
+
+== Ansible checks
+
+Check Ansible syntax with `ansible-playbook --syntax-check playbook.yaml`.
+
+____
+"The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint).
+____
+
+== Molecule
+
+Molecule is about what Unit-Tests would do on a programming language.
+
+=== Create a new role with tests
+
+TODO
+
+=== Create tests in an existing role
+
+```sh
+cd roles/vhosts
+molecule init scenario -r vhosts -d docker  # To create tests using the Ansible verifier. You probably do not want this unless you are really in love with Ansible.
+molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra  # To create tests using the testinfra verifier, which is just a bit of Python.
+```
+
+NOTE: Idempotence is tested with _any_ verifier, as it is part of the `idempotence` step.
+You therefore do not need an extra `ansible` verifier to ensure it.
+
+=== Run test scenarios
+
+```sh
+cd roles/vhosts
+molecule test --all
+```
+
+== Formatting Python files with `black`
+
+* Install via `pip install black`.
+* Run `black .` to format Python files.

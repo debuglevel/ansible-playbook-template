@@ -1,0 +1,47 @@
+= Ansible installation
+ifndef::relative_imagesdir[]
+:relative_imagesdir: .
+endif::[]
+:toc:
+
+To run this playbook, you will need Ansible.
+Ansible requires a somewhat recent version of Python and Linux.
+Windows is not supported -- just use WSL if you are working on a Windows machine.
+
+See also https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
+
+== Python requirements
+
+For minimum Python versions required by Ansible, see https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#node-requirement-summary.
+If the provided Python version is not at least Python 3.8, install it: https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04.
+
+== Install Ansible via `pip` in a virtual environment
+
+As always if you use Python:
+Just use a virtual environment -- you will do yourself a favor.
+
+```sh
+#sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv  # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
+sudo apt-get update && sudo apt-get install -f python3-venv  # Install the venv module if necessary
+
+# Create the virtual environment if it does not yet exist
+#python -m venv venv
+python3.8 -m venv venv  # ... if your default `python` is too old (e.g. Ubuntu 18.04)
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install dependencies
+pip install --upgrade pip  # Update pip, as old versions may cause errors
+pip install -r requirements.yaml  # Install the following packages
+pip install ansible  # NOTE: Works without `python3.8` as we're in a virtual environment now :)
+pip install molecule[docker] pytest-testinfra yamllint ansible-lint  # If you want to run linting/tests
+```
+
+CAUTION: In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
+
+== Install Ansible dependencies
+
+```sh
+ansible-galaxy install -r requirements.yaml
+```
