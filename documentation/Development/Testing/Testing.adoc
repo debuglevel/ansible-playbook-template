@@ -37,14 +37,17 @@ Molecule is about what Unit-Tests would do on a programming language.
 
 === Create a new role with tests
 
-TODO
+```sh
+cd roles
+molecule init role --driver-name docker --verifier-name testinfra mycompany.some_role
+```
 
 === Create tests in an existing role
 
 ```sh
-cd roles/vhosts
-molecule init scenario -r vhosts -d docker  # To create tests using the Ansible verifier. You probably do not want this unless you are really in love with Ansible.
-molecule init scenario -r vhosts -d docker --verifier-name testinfra testinfra  # To create tests using the testinfra verifier, which is just a bit of Python.
+cd roles/mycompany.some_role
+molecule init scenario --role-name mycompany.some_role --driver-name docker  # To create tests using the Ansible verifier. You probably do not want this unless you are really in love with Ansible.
+molecule init scenario --role-name mycompany.some_role --driver-name docker --verifier-name testinfra  # To create tests using the testinfra verifier, which is just a bit of Python.
 ```
 
 NOTE: Idempotence is tested with _any_ verifier, as it is part of the `idempotence` step.
@@ -53,7 +56,7 @@ You therefore do not need an extra `ansible` verifier to ensure it.
 === Run test scenarios
 
 ```sh
-cd roles/vhosts
+cd roles/mycompany.some_role
 molecule test --all
 ```
 
