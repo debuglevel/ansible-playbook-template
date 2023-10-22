@@ -1,0 +1,3 @@
+---
+# CAUTION: This file WILL NOT be read by Ansible.
+#          Use `group_vars/all.yaml` instead.
