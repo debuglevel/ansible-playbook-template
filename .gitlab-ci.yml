@@ -1,0 +1,67 @@
+---
+stages:
+  - lint
+  - test
+
+lint YAML:
+  stage: lint
+  needs: []
+  parallel:
+    matrix:
+      - PYTHON_VERSION:
+        - "3.10"  # Ubuntu 22.04 ships with this.
+        # - "3.11"
+        - "3.12"  # Ubuntu 24.04 ships with this.
+        # - "3.13"
+  image: python:$PYTHON_VERSION
+  script:
+    - echo "Installing dependencies..."
+    - pip3 install yamllint
+    - echo "Installed dependencies."
+
+    - echo "Linting YAML..."
+    - yamllint .
+    - echo "Linted YAML."
+  allow_failure: true
+
+lint Ansible:
+  stage: lint
+  needs: []
+  parallel:
+    matrix:
+      - PYTHON_VERSION:
+        - "3.10"  # Ubuntu 22.04 ships with this.
+        # - "3.11"
+        - "3.12"  # Ubuntu 24.04 ships with this.
+        # - "3.13"
+  image: python:$PYTHON_VERSION
+  script:
+    - echo "Installing dependencies..."
+    - pip3 install --requirement requirements.txt
+    - echo "Installed dependencies."
+
+    - echo "Linting Ansible..."
+    - ansible-lint .
+    - echo "Linted Ansible."
+  allow_failure: true
+
+install Ansible dependencies:
+  stage: test
+  needs: []
+  parallel:
+    matrix:
+      - PYTHON_VERSION:
+        - "3.10"  # Ubuntu 22.04 ships with this.
+        # - "3.11"
+        - "3.12"  # Ubuntu 24.04 ships with this.
+        # - "3.13"
+  image: python:$PYTHON_VERSION
+  script:
+    - echo "Installing dependencies..."
+    - pip3 install --requirement requirements.txt
+    - echo "Installed dependencies."
+
+    - echo "Installing Ansible dependencies..."
+    - ansible-galaxy install --role-file requirements.yaml --force
+    - echo "Installed Ansible dependencies."
+  allow_failure: true

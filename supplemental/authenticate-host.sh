@@ -44,5 +44,8 @@ done
 
 if [ "$known_hosts_changed" = true ] ; then
     echo "Exiting with return code 1 to indicate changes to ~/.ssh/known_hosts"
+    echo
     exit 1
 fi
+
+echo

@@ -15,7 +15,8 @@ rules:
   commas:
     max-spaces-after: -1
     level: error
-  comments: disable
+  comments:
+    min-spaces-from-content: 1 # ansible-lint wants 1 instead of 2. Which is sad, but `ansible-lint --fix` would not work otherwise.
   comments-indentation: disable
   document-start:
     present: true
@@ -32,6 +33,9 @@ rules:
     type: unix
   trailing-spaces: disable
   truthy: disable
+  octal-values:
+    forbid-implicit-octal: true # ansible-lint wants this
+    forbid-explicit-octal: true # ansible-lint wants this
 
 ignore: |
   venv/

@@ -1,38 +1,69 @@
 ---
 all:
   vars:
-    # TODO: Use a "ansible" user so we can distinguish between CI/CD and manual work.
-    ansible_user: marc
-  children:
-    hosts:
-      dbglvl1.uber.space:
-        ansible_user: dbglvl1
-      dbglvl2.uber.space:
-        ansible_user: dbglvl2
+    # The default user to connect to the hosts with.
+    # Must be a "sudo-able" user.
+    ansible_user: ansible
 
+  hosts:
+    nas01.sol.lan:
+      # Created via `ansible-vault encrypt_string`.
+      # (This example is just random garbage.)
+      ansible_become_password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        47589457894574389578934578934579048394830943780489732487324089227337893247987897
+        34353030313930393465613765343831653963663761666563373866316135336138383037363762
+        45892345934723894723847238472384782937489327482374823740982384354783247308947230
+        34782374982347823947892347832470392478934798327489347892347893247039498230948230
+        3243
+
+    workstation.sol.lan:
+      # This example host does not use `ansible` but another sudo-able user instead.
+      ansible_user: hpotter
+      # Created via `ansible-vault encrypt_string`.
+      # (This example is just random garbage.)
+      ansible_become_password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        47589457894574389578934578934579048394830943780489732487324089227337893247987897
+        34353030313930393465613765343831653963663761666563373866316135336138383037363762
+        45892345934723894723847238472384782937489327482374823740982384354783247308947230
+        34782374982347823947892347832470392478934798327489347892347893247039498230948230
+        3243
+
+
+  children:
     # Categorized into "what", "where", and "when" as suggested by <https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-in-multiple-groups>
 
     # What - An application, stack or microservice (for example, database servers, web servers, and so on).
     helloworld: # Write a "hello world" mark to /tmp/
-      delta.huwi.rocks:
-      dbglvl1.uber.space:
-      dbglvl2.uber.space:
+      hosts:
+    borg: # Deploy borg backup client.
+      hosts:
+        nas.sol.lan:
+        workstation.sol.lan:
+    nas: # Deploy a NAS server.
+      hosts:
+        nas.sol.lan:
 
+    # TODO: not sure whether we should distinguish operating systems because that is probably an Ansible variable.
     root_server: # Servers which we have root access; i.e. no shared servers.
-      delta.huwi.rocks:
+      children:
+        linux:
+        windows:
+    linux:
+      children:
+        nas:
+    windows:
+      children:
 
     # Where - A datacenter or region, to talk to local DNS, storage, and so on (for example, east, west).
-    uberspace:
-      hosts:
-        dbglvl1.uber.space:
-        dbglvl2.uber.space:
-
-    home:
-      hosts:
-
-    university:
-      hosts:
-        delta.huwi.rocks:
+    # TODO: do we need this?
 
     # When - The development stage, to avoid testing on production resources (for example, prod, test).
-    # TODO: do we need this?
+    development:
+      hosts:
+        nas-development.sol.lan:
+
+    production:
+      hosts:
+        nas.sol.lan:

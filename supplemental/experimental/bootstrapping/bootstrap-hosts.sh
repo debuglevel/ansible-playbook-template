@@ -24,4 +24,4 @@ echo "Starting ansible-playbook..."
 echo "  You will now be asked for the SSH password for user $user"
 echo
 
-ansible-playbook bootstrap.yml -i $inventory --key-file=$publickeyfile --user=$user -K -k
+ansible-playbook bootstrap.yaml -i $inventory --key-file=$publickeyfile --user=$user -K -k

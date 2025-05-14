@@ -23,7 +23,7 @@ include::{module}/{module}.adoc[leveloffset=+1]
 == Run this playbook
 
 * Run the playbook via `ANSIBLE_CONFIG="./ansible.cfg" ansible-playbook --inventory=inventory.yaml --ask-vault-pass playbook.yaml`.
- ** Use `ANSIBLE_CONFIG="./ansible.cfg" python3.8 "$(which ansible-playbook)" --inventory=inventory.yaml --ask-vault-pass playbook.yaml` if you've got a space in your path.
+ ** Use `ANSIBLE_CONFIG="./ansible.cfg" python3.10 "$(which ansible-playbook)" --inventory=inventory.yaml --ask-vault-pass playbook.yaml` if you've got a space in your path.
 
 :module: Deployment
 :relative_imagesdir: {relative_imagesdir}/{module}

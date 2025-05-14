@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://vagrantcloud.com/search.
-    bbb.vm.box = "ubuntu/jammy64"
+    bbb.vm.box = "ubuntu/noble64"
 
     bbb.vm.boot_timeout = 900 # instead of 300
 

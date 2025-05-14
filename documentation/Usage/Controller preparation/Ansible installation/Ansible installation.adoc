@@ -21,22 +21,21 @@ As always if you use Python:
 Just use a virtual environment -- you will do yourself a favor.
 
 ```sh
-#sudo apt-get install python3.8 python3.8-dev python3.8-distutils python3.8-venv  # Install Python 3.8 if necessary (e.g. Ubuntu 18.04)
-sudo apt-get update && sudo apt-get install -f python3-venv  # Install the venv module if necessary
+# Install the venv module if necessary.
+sudo apt-get update && sudo apt-get install -y python3-venv
 
-# Create the virtual environment if it does not yet exist
-#python -m venv venv
-python3.8 -m venv venv  # ... if your default `python` is too old (e.g. Ubuntu 18.04)
+# Create the virtual environment if it does not yet exist.
+python3 -m venv venv
 
-# Activate the virtual environment
+# Activate the virtual environment.
 source venv/bin/activate
 
-# Install dependencies
-pip install --upgrade pip  # Update pip, as old versions may cause errors
-pip install --requirement requirements.yaml  # Install packages
+# Install dependencies.
+pip3 install --upgrade pip  # Update pip, as old versions may cause errors
+pip3 install --requirement requirements.txt
 ```
 
-CAUTION: In WSL, it might be better to not create the virtual environment under `/mnt/c` as this is pretty slow.
+CAUTION: In WSL, it might be better to not create the virtual environment under `/mnt/c` as it will be quite slow.
 
 == Install Ansible dependencies
 

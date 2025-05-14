@@ -47,7 +47,7 @@ CAUTION: If you do not supply it, the `become` stuff will fail, as these passwor
 
 ==== Path containing space
 
-If your path contains a space, you might need to use `python3.8 venv/bin/ansible` or `python3.8 "$(which ansible)"` instead of `ansible` or `./venv/bin/ansible`, because the space seems to kill the shebang.
+If your path contains a space, you might need to use `python3.10 venv/bin/ansible` or `python3.10 "$(which ansible)"` instead of `ansible` or `./venv/bin/ansible`, because the space seems to kill the shebang.
 Same applies to `ansible-playbook`.
 
 ==== `ansible.cfg` in world-writable directory
@@ -66,10 +66,27 @@ ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'ps
 ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'apt-get update && apt-get install borgmatic'"
 ```
 
-== Deploy using `ansible-playbook`
+== Deploy using `deploy.sh` as convenience wrapper
+
+Use `deploy.sh` as an easy wrapper to ...
+
+* ... roll back the Proxmox VM
+* ... execute Ansible stuff on the correct group constraints
+* ... maybe provide tags
+* ... maybe provide other options
+
+```sh
+bash deploy.sh --stage development --rollback
+bash deploy.sh --stage production --force
+```
+
+== Deploy using `ansible-playbook` as workaround
+
+There still might be cases in which `deploy.sh` cannot help you;
+e.g. deploying only the `greenlight2` group.
 
 This might be a useful template in such cases:
 
 ```sh
-ANSIBLE_CONFIG="./ansible.cfg" python3.8 "$(which ansible-playbook)" --diff --inventory=inventory.yaml --ask-vault-pass --limit "rpimonitor:&development" -v playbook.yaml
+ANSIBLE_CONFIG="./ansible.cfg" python3 "$(which ansible-playbook)" --diff --inventory=inventory.yaml --ask-vault-pass --limit "greenlight2:&development" -v playbook.yaml
 ```

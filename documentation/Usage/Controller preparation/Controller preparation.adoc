@@ -37,6 +37,7 @@ This snippet will just accept all SSH fingerprints:
 for i in inventory*; do
   echo "== Processing $i..."
   supplemental/print-inventory-hosts.py $i | supplemental/authenticate-hosts.sh
+  echo "== Processed $i."
 done
 ```
 
