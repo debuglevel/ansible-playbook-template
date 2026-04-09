@@ -1,19 +1,32 @@
 # Ansible installation
 
-To run this playbook, you will need Ansible.
-Ansible requires a somewhat recent version of Python and Linux.
+To run this playbook, you will need Linux and Ansible.
 Windows is not supported -- just use WSL if you are working on a Windows machine.
 
 See also https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
 
 ## Python requirements
 
-For minimum Python versions required by Ansible, see https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#node-requirement-summary.
-If the provided Python version is not at least Python 3.8, install it: https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04.
+Ansible requires a Python version within a certain range (see requirements.txt).
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#node-requirement-summary.
+
+You may use `pyenv` (https://github.com/pyenv/pyenv) to manage multiple Python versions (or to install a newer one than the one provided by yout distribution):
+```sh
+pyenv install -l  # List available Python versions.
+pyenv install 3.12.12  # Install a Python version.
+pyenv shell 3.12.12  # Make THIS shell use the Python version.
+python --version  # This should print the version.
+
+python3 -m venv venv  # Create a venv.
+source ./venv/bin/activate  # Activate the venv.
+python --version  # This should print the version.
+```
+
+The venv should remember the Python version via `pyvenv.cfg`.
 
 ## Install Ansible via `pip` in a virtual environment
 
-As always if you use Python:
+As always when you use Python:
 Just use a virtual environment -- you will do yourself a favor.
 
 ```sh
