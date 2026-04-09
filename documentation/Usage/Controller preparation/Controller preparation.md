@@ -1,19 +1,11 @@
-= Controller preparation
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Controller preparation
 
 The controller (or controller node) is the machine you run Ansible on.
 This might be your workstation or a container in a CI/CD pipeline.
 
-:module: Ansible installation
-:relative_imagesdir: {relative_imagesdir}/{module}
-:imagesdir: {relative_imagesdir}
-include::{module}/{module}.adoc[leveloffset=+1]
-:relative_imagesdir: {relative_imagesdir}/..
+- [Ansible installation](<Ansible installation/Ansible installation>)
 
-== Use `ssh-agent` to remember SSH key passphrase
+## Use `ssh-agent` to remember SSH key passphrase
 
 Ansible will open many SSH connections, and SSH will therefore ask for your SSH key passphrase.
 You should use `ssh-agent` to keep it unlocked in memory:
@@ -27,7 +19,7 @@ ssh-add  # Add the default identity file to the agent
 # eval "$(ssh-agent -s)" && ssh-add  # This shortcut also works.
 ```
 
-== Add all hosts to `~/.ssh/known_hosts`
+## Add all hosts to `~/.ssh/known_hosts`
 
 If you never connected to the hosts via SSH before, SSH will ask you to verify their fingerprint.
 
@@ -41,4 +33,5 @@ for i in inventory*; do
 done
 ```
 
-WARNING: This is actually a security risk as SSH fingerprints are supposed to be checked manually -- even if nobody does that.
+> [!WARNING]
+> This is actually a security risk as SSH fingerprints are supposed to be checked manually -- even if nobody does that.

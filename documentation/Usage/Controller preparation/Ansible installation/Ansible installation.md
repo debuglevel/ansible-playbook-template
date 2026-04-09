@@ -1,8 +1,4 @@
-= Ansible installation
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Ansible installation
 
 To run this playbook, you will need Ansible.
 Ansible requires a somewhat recent version of Python and Linux.
@@ -10,12 +6,12 @@ Windows is not supported -- just use WSL if you are working on a Windows machine
 
 See also https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html.
 
-== Python requirements
+## Python requirements
 
 For minimum Python versions required by Ansible, see https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#node-requirement-summary.
 If the provided Python version is not at least Python 3.8, install it: https://askubuntu.com/questions/1197683/how-do-i-install-python-3-8-in-lubuntu-18-04.
 
-== Install Ansible via `pip` in a virtual environment
+## Install Ansible via `pip` in a virtual environment
 
 As always if you use Python:
 Just use a virtual environment -- you will do yourself a favor.
@@ -35,9 +31,10 @@ pip3 install --upgrade pip  # Update pip, as old versions may cause errors
 pip3 install --requirement requirements.txt
 ```
 
-CAUTION: In WSL, it might be better to not create the virtual environment under `/mnt/c` as it will be quite slow.
+> [!CAUTION]
+> In WSL, it might be better to not create the virtual environment under `/mnt/c` as it will be quite slow.
 
-== Install Ansible dependencies
+## Install Ansible dependencies
 
 ```sh
 ansible-galaxy install --role-file requirements.yaml

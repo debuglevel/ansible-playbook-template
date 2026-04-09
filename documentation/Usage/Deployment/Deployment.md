@@ -1,10 +1,6 @@
-= The actual deployment
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# The actual deployment
 
-== Activate Python virtual environment
+## Activate Python virtual environment
 
 If you opened a new shell (we assume `bash`), you will need to activate the Python virtual environment:
 
@@ -16,16 +12,16 @@ source venv/bin/activate  # Activate the virtual environment
 . bin/activate.fish  # `fish` users may use this (untested)
 ```
 
-== Start SSH-Agent
+## Start SSH-Agent
 
 You should start the SSH agent and add your key.
-Running Ansible against multiple hosts will fail if you don't do this.
+Running Ansible against multiple hosts will fail if you don’t do this.
 
 ```sh
 eval "$(ssh-agent -s)" && ssh-add
 ```
 
-== Use Ansible
+## Use Ansible
 
 If you want to run `ansible` or `ansible-playbook` without the convenience wrapper `deploy.sh`, these might be some helpful options:
 
@@ -33,29 +29,34 @@ If you want to run `ansible` or `ansible-playbook` without the convenience wrapp
 Multiple inventories are allowed.
 Use `--inventory=localhost,` (note the trailing `,`) to specify a host without an inventory.
 * Use `--remote-user=user` to use the `user` username to connect via SSH (instead of `$USER`).
-+
-CAUTION: You should probably configure `ansible_user` in your inventory instead.
+
+> [!CAUTION]
+> You should probably configure `ansible_user` in your inventory instead.
+
 * Use `--verbose` to see detailed output from modules.
 * Use `--extra-vars "letsencrypt_email=bla@bla.bla"` to override a variable.
-+
-NOTE: For a permanent solution, you should use the `*_vars` files.
+
+> [!NOTE]
+> For a permanent solution, you should use the `*_vars` files.
+
 * Use `--ask-vault-pass` to let Ansible ask for the sudo password.
-+
-CAUTION: If you do not supply it, the `become` stuff will fail, as these passwords are encrypted using Ansible Vault.
 
-=== Ansible CAVEATs
+> [!CAUTION]
+> If you do not supply it, the `become` stuff will fail, as these passwords are encrypted using Ansible Vault.
 
-==== Path containing space
+### Ansible CAVEATs
+
+#### Path containing space
 
 If your path contains a space, you might need to use `python3.10 venv/bin/ansible` or `python3.10 "$(which ansible)"` instead of `ansible` or `./venv/bin/ansible`, because the space seems to kill the shebang.
 Same applies to `ansible-playbook`.
 
-==== `ansible.cfg` in world-writable directory
+#### `ansible.cfg` in world-writable directory
 
 Ansible will NOT use `ansible.cfg` if the current directory is world-writable.
 As this is not too easy to change on WSL, you can just set the environment variable `ANSIBLE_CONFIG="./ansible.cfg"` instead.
 
-=== Test configuration/environment
+### Test configuration/environment
 
 To test your configuration/environment, issue a simple command to all hosts in `inventory.yaml`:
 
@@ -66,7 +67,7 @@ ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'ps
 ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'apt-get update && apt-get install borgmatic'"
 ```
 
-== Deploy using `deploy.sh` as convenience wrapper
+## Deploy using `deploy.sh` as convenience wrapper
 
 Use `deploy.sh` as an easy wrapper to ...
 
@@ -80,7 +81,7 @@ bash deploy.sh --stage development --rollback
 bash deploy.sh --stage production --force
 ```
 
-== Deploy using `ansible-playbook` as workaround
+## Deploy using `ansible-playbook` as workaround
 
 There still might be cases in which `deploy.sh` cannot help you;
 e.g. deploying only the `greenlight2` group.

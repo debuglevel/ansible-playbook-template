@@ -1,20 +1,16 @@
-= Requirements
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Requirements
 
-== Install Vagrant
+## Install Vagrant
 
 We use Vagrant to start a fresh virtual machine image we can test our Ansible stuff against.
 
 Install Vagrant according to https://www.vagrantup.com/downloads.
 
-== Install hypervisor
+## Install hypervisor
 
 To actually use Vagrant, you need a "provider".
 
 * On Linux, use VirtualBox.
- ** On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
+  * On Ubuntu, install it via: `sudo apt install virtualbox virtualbox-ext-pack`
 * On Windows, use Hyper-V.
 Be aware that you must execute `vagrant` in a shell with administrator privileges.

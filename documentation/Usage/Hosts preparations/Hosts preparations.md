@@ -1,10 +1,6 @@
-= Hosts preparations
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Hosts preparations
 
-== Authorize your SSH key on the hosts
+## Authorize your SSH key on the hosts
 
 Running Ansible requires that your SSH key is in each `~/.ssh/authorized_keys` (with `~` being the `$HOME` of the `ansible_user` of each host specified in `inventory.yaml`).
 

@@ -1,17 +1,13 @@
-= Tags
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Tags
 
 This file describes the tags used in the playbook.
 Tags are used to only run a certain subset of the playbook, e.g.
-if you want to only update the backup stuff: `+ansible-playbook [...] --tags backup playbook.yaml+` For multiple tags, use `--tags backup,unicorns`.
+if you want to only update the backup stuff: `ansible-playbook [...] --tags backup playbook.yaml` For multiple tags, use `--tags backup,unicorns`.
 
 To get the whole list of (also undocumented) tags, run `ansible-playbok -i inventory.yaml --list-tags playbook.yaml`.
 
-Use `+ansible-playbook [...] --tags backup --list-tasks playbook.yaml+` to list which tasks would run.
-Use `+ansible-playbook [...] --ask-vault-pass --check --tags backup playbook.yaml+` for a dry-run to check which tasks on which hosts would actually run and would probably change something.
+Use `ansible-playbook [...] --tags backup --list-tasks playbook.yaml` to list which tasks would run.
+Use `ansible-playbook [...] --ask-vault-pass --check --tags backup playbook.yaml` for a dry-run to check which tasks on which hosts would actually run and would probably change something.
 
 * `base` ensures all the basic `base:*` stuff.
 * `base:etckeeper` ensures etckeeper.
@@ -28,13 +24,14 @@ These might be rather slow tasks.
 * `monitoring:prometheus:misc` ensures the Prometheus `misc-exporter`.
 * `monitoring:prometheus:systemd` ensures the Prometheus `systemd-exporter`.
 
-== Tips and Workarounds
+## Tips and Workarounds
 
 * `verify` checks if services are actually working (e.g. respond on port, certain text in response).
 * `slow` contains very slow tasks (which would run always, because they are just a large script).
 You can skip them with `--skip-tags slow` if they had already run once.
 
-== Development
+## Development
 
-NOTE: `import_*` will inherit a tag;
-`include_*` will not (see `apply`: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#tag-inheritance-for-includes-blocks-and-the-apply-keyword).
+> [!NOTE]
+> `import_*` will inherit a tag;
+> `include_*` will not (see `apply`: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#tag-inheritance-for-includes-blocks-and-the-apply-keyword).

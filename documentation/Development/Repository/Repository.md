@@ -1,25 +1,21 @@
-= Repository
-ifndef::relative_imagesdir[]
-:relative_imagesdir: .
-endif::[]
-:toc:
+# Repository
 
-== Update subtrees
+## Update subtrees
 
 Some git repositories might be included as subtrees.
 Use `update-git-subtrees.sh` to update them.
 
-== Merge upstream changes from `debuglevel/ansible-template`
+## Merge upstream changes from `debuglevel/ansible-template`
 
 This template is based on `debuglevel/ansible-template`.
 
 You can merge upstream changes into your current branch:
 
-. Add remote via `+git remote add upstream https://github.com/debuglevel/ansible-template.git+`.
-. Retrieve the repository via `git pull upstream`.
-. Merge into the current branch via `git merge upstream/master`.
+1. Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git`.
+2. Retrieve the repository via `git pull upstream`.
+3. Merge into the current branch via `git merge upstream/master`.
 
-== Merge upstream git template (alternative/additional notes)
+## Merge upstream git template (alternative/additional notes)
 
 * This assumes you leave `master` alone and do all your work in a separate branch (e.g. `home`).
 * Your `git remote` should contain the `upstream` remote:
