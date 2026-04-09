@@ -19,6 +19,7 @@
 # We have Python 3.10 on managed nodes (Ubuntu 22.04) <- BBB as of 2026-01-12.
 # We have Python 3.12 on managed nodes (Ubuntu 24.04) <- General as of 2026-01-12.
 
+ansible==12.3.0
 
 molecule==25.3.1
 molecule-plugins[docker]==23.7.0
