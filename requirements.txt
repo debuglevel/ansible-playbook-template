@@ -1,19 +1,24 @@
 # See this to find supported Python versions for `ansible-core`:
 # https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix
 #
-# Ansible 2.18 needs Python 3.11-3.13 on control node, 3.8-3.13 on managed nodes.
-# Ansible 2.17 needs Python 3.10-3.12 on control node, 3.7-3.12 on managed nodes.
-# Ansible 2.16 needs Python 3.10-3.12 on control node, 3.6-3.12 on managed nodes.
-# Ansible 2.15- is EOL.
-#
-# We have Python 3.10 on control node (Ubuntu 22.04).
-# We have Python 3.10 on managed nodes (Ubuntu 22.04).
-
 # See this to match the `ansible` (community) package version with `ansible-core` version:
 # https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-community-changelogs
 #
-# i.e. we use `ansible-core` 2.17 which matches `ansible` 10.x
-ansible==10.7.0
+# See this to check for EOL of the `ansible` (community) packages:
+# https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-community-changelogs
+#
+# ansible 14 (ansible-core 2.21)       needs Python 3.??-3.?? on control node, 3.?-3.?? on managed nodes.
+# ansible 13 (ansible-core 2.20)       needs Python 3.12-3.14 on control node, 3.9-3.14 on managed nodes.
+# ansible 12 (ansible-core 2.19) (EOL) needs Python 3.11-3.13 on control node, 3.8-3.13 on managed nodes.
+# ansible 11 (ansible-core 2.18) (EOL) needs Python 3.11-3.13 on control node, 3.8-3.13 on managed nodes.
+# ansible 10 (ansible-core 2.17) (EOL) needs Python 3.10-3.12 on control node, 3.7-3.12 on managed nodes.
+# ansible  9 (ansible-core 2.16) (EOL) needs Python 3.10-3.12 on control node, 3.6-3.12 on managed nodes.
+# ansible  8 (ansible-core 2.15) (EOL) needs Python 3.9 -3.11 on control node, 3.5-3.11 on managed nodes.
+#
+# We have Python 3.10 on control node  (Ubuntu 22.04).
+# We have Python 3.10 on managed nodes (Ubuntu 22.04) <- BBB as of 2026-01-12.
+# We have Python 3.12 on managed nodes (Ubuntu 24.04) <- General as of 2026-01-12.
+
 
 molecule==25.3.1
 molecule-plugins[docker]==23.7.0
