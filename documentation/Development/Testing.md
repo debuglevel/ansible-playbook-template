@@ -25,6 +25,10 @@ Check Ansible syntax with `ansible-playbook --syntax-check playbook.yaml`.
 
 > "The ansible-playbook command offers several options for verification, including --check, --diff, --list-hosts, --list-tasks, and --syntax-check" (https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#ansible-lint).
 
+## Dry-run
+
+`--check` performs a dry-run.
+
 ## Molecule
 
 Molecule is about what Unit-Tests would do on a programming language.
