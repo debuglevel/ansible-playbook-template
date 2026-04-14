@@ -5,14 +5,14 @@
 Some git repositories might be included as subtrees.
 Use `update-git-subtrees.sh` to update them.
 
-## Merge upstream changes from `debuglevel/ansible-template`
+## Merge upstream changes from `debuglevel/ansible-playbook-template`
 
-This template is based on `debuglevel/ansible-template`.
+This template is based on `debuglevel/ansible-playbook-template`.
 
 You can merge upstream changes into your current branch:
 
-1. Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git`.
-2. Retrieve the repository via `git pull upstream`.
+1. Add remote via `git remote add upstream https://github.com/debuglevel/ansible-playbook-template.git`.
+2. Retrieve the repository via `git fetch upstream`.
 3. Merge into the current branch via `git merge upstream/master` or `git merge --no-commit upstream/master`.
 
 ## Merge upstream git template (alternative/additional notes)
@@ -25,12 +25,12 @@ $ git remote
 
 origin          git@github.com:debuglevel/ansible-home.git (fetch)
 origin          git@github.com:debuglevel/ansible-home.git (push)
-upstream        git@github.com:debuglevel/ansible-template.git (fetch)
-upstream        git@github.com:debuglevel/ansible-template.git (push)
+upstream        git@github.com:debuglevel/ansible-playbook-template.git (fetch)
+upstream        git@github.com:debuglevel/ansible-playbook-template.git (push)
 ```
 
 * Get data from the upstream branches: `git fetch upstream`.
-* You now have a `upstream/master` branch: `git branch -a`
+* You now have a `upstream/master` branch: `git branch --all`
 * Checkout your `master` branch: `git checkout master`
 * Merge `upstream/master` into your `master`: `git merge upstream/master`
 * Checkout your development branch: `git checkout home`
