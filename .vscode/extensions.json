@@ -4,6 +4,7 @@
         "redhat.ansible",
         "ms-azuretools.vscode-docker",
         "samuelcolvin.jinjahtml",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "iliazeus.vscode-ansi"
     ]
 }
