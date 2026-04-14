@@ -16,16 +16,16 @@
 # ansible  8 (ansible-core 2.15) (EOL) needs Python 3.9 -3.11 on control node, 3.5-3.11 on managed nodes.
 #
 
-ansible==12.3.0
+ansible==13.5.0
 
-molecule==25.3.1
-molecule-plugins[docker]==23.7.0
+molecule==26.4.0
+molecule-plugins[docker]==25.8.12
 
-yamllint==1.35.1
-ansible-lint==25.1.3
+yamllint==1.38.0
+ansible-lint==26.4.0
 
-pytest==8.3.5
-pytest-testinfra==10.1.1
+pytest==9.0.3
+pytest-testinfra==10.2.2
 
 # Often needed when hashing passwords.
 passlib==1.7.4
