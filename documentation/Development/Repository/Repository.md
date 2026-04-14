@@ -13,7 +13,7 @@ You can merge upstream changes into your current branch:
 
 1. Add remote via `git remote add upstream https://github.com/debuglevel/ansible-template.git`.
 2. Retrieve the repository via `git pull upstream`.
-3. Merge into the current branch via `git merge upstream/master`.
+3. Merge into the current branch via `git merge upstream/master` or `git merge --no-commit upstream/master`.
 
 ## Merge upstream git template (alternative/additional notes)
 
