@@ -14,7 +14,6 @@
 # ansible 10 (ansible-core 2.17) (EOL) needs Python 3.10-3.12 on control node, 3.7-3.12 on managed nodes.
 # ansible  9 (ansible-core 2.16) (EOL) needs Python 3.10-3.12 on control node, 3.6-3.12 on managed nodes.
 # ansible  8 (ansible-core 2.15) (EOL) needs Python 3.9 -3.11 on control node, 3.5-3.11 on managed nodes.
-#
 
 ansible==13.5.0
 
