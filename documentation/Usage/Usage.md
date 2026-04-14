@@ -10,6 +10,10 @@ ANSIBLE_CONFIG="./ansible.cfg" ansible-playbook --inventory=inventory.yaml playb
 
 # In case there is a space in the path.
 ANSIBLE_CONFIG="./ansible.cfg" python3 "$(which ansible-playbook)" --inventory=inventory.yaml playbook.yaml
+
+# If you want to save a colored log.
+ANSIBLE_FORCE_COLOR=True ansible-playbook ... | tee -a ansible.color.log
+less -R ansible.color.log
 ```
 
 - [Deployment](Deployment)
