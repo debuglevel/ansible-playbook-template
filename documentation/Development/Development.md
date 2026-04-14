@@ -1,9 +1,9 @@
 # Developing this playbook
 
-- [Repository](Repository/Repository)
-- [Testing](Testing/Testing)
-- [Requirements](Requirements/Requirements)
-- [Vagrant](Vagrant/Vagrant)
+- [Repository](Repository)
+- [Testing](Testing)
+- [Requirements](Requirements)
+- [Vagrant](Vagrant)
 
 ## Turn into a Collection
 

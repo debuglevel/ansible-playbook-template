@@ -3,7 +3,7 @@
 The controller (or controller node) is the machine you run Ansible on.
 This might be your workstation or a container in a CI/CD pipeline.
 
-- [Ansible installation](<Ansible installation/Ansible installation>)
+- [Ansible installation](<Ansible installation>)
 
 ## Use `ssh-agent` to remember SSH key passphrase
 
