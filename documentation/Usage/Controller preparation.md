@@ -1,9 +1,9 @@
 # Controller preparation
 
-The controller (or controller node) is the machine you run Ansible on.
+The controller (or control node) is the machine you run Ansible on.
 This might be your workstation or a container in a CI/CD pipeline.
 
-- [Ansible installation](<Ansible installation>)
+- [How to install Ansible](<Ansible installation>)
 
 ## Use `ssh-agent` to remember SSH key passphrase
 
@@ -11,12 +11,12 @@ Ansible will open many SSH connections, and SSH will therefore ask for your SSH 
 You should use `ssh-agent` to keep it unlocked in memory:
 
 ```sh
-eval "$(ssh-agent -s)"  # Start the SSH Agent in background
-ssh-add  # Add the default identity file to the agent
+# eval "$(ssh-agent -s)"  # Start the SSH Agent in background
+# ssh-add  # Add the default identity file to the agent
 
-# ssh-add ~/.ssh/id_ed25519 # Provide another identity file
+eval "$(ssh-agent -s)" && ssh-add  # Nice shortcut.
 
-# eval "$(ssh-agent -s)" && ssh-add  # This shortcut also works.
+# ssh-add ~/.ssh/id_ed25519  # Provide another identity file
 ```
 
 ## Add all hosts to `~/.ssh/known_hosts`
@@ -26,7 +26,7 @@ If you never connected to the hosts via SSH before, SSH will ask you to verify t
 This snippet will just accept all SSH fingerprints:
 
 ```bash
-for i in inventory*; do
+for i in inventory*.y*ml; do
   echo "== Processing $i..."
   supplemental/print-inventory-hosts.py $i | supplemental/authenticate-hosts.sh
   echo "== Processed $i."
@@ -34,4 +34,4 @@ done
 ```
 
 > [!WARNING]
-> This is actually a security risk as SSH fingerprints are supposed to be checked manually -- even if nobody does that.
+> This is actually a security risk, as SSH fingerprints are supposed to be checked manually -- even if nobody does that.

@@ -8,10 +8,6 @@ If you opened a new shell (we assume `bash`), you will need to activate the Pyth
 source venv/bin/activate  # Activate the virtual environment
 ```
 
-```fish
-. bin/activate.fish  # `fish` users may use this (untested)
-```
-
 ## Start SSH-Agent
 
 You should start the SSH agent and add your key.
@@ -23,11 +19,11 @@ eval "$(ssh-agent -s)" && ssh-add
 
 ## Use Ansible
 
-If you want to run `ansible` or `ansible-playbook` without the convenience wrapper `deploy.sh`, these might be some helpful options:
+Some helpful options:
 
 * Use `--inventory=` to specify an inventory other than `/ect/ansible/hosts`.
 Multiple inventories are allowed.
-Use `--inventory=localhost,` (note the trailing `,`) to specify a host without an inventory.
+Use `--inventory=localhost,` (note the trailing `,`) to specify a host without using an inventory.
 * Use `--remote-user=user` to use the `user` username to connect via SSH (instead of `$USER`).
 
 > [!CAUTION]
@@ -42,7 +38,7 @@ Use `--inventory=localhost,` (note the trailing `,`) to specify a host without a
 * Use `--ask-vault-pass` to let Ansible ask for the sudo password.
 
 > [!CAUTION]
-> If you do not supply it, the `become` stuff will fail, as these passwords are encrypted using Ansible Vault.
+> If you do not supply `--ask-vault-pass`, the `become` stuff will fail, as the sudo passwords are encrypted using Ansible Vault.
 
 ### Ansible CAVEATs
 
@@ -65,29 +61,4 @@ ansible all --inventory=inventory.yaml -a "/bin/echo works"
 ansible all --inventory=inventory.yaml -m ping
 ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'ps -Af | grep borg | grep -v grep'"
 ansible all --inventory=inventory.yaml --become --ask-vault-pass -a "bash -c 'apt-get update && apt-get install borgmatic'"
-```
-
-## Deploy using `deploy.sh` as convenience wrapper
-
-Use `deploy.sh` as an easy wrapper to ...
-
-* ... roll back the Proxmox VM
-* ... execute Ansible stuff on the correct group constraints
-* ... maybe provide tags
-* ... maybe provide other options
-
-```sh
-bash deploy.sh --stage development --rollback
-bash deploy.sh --stage production --force
-```
-
-## Deploy using `ansible-playbook` as workaround
-
-There still might be cases in which `deploy.sh` cannot help you;
-e.g. deploying only the `greenlight2` group.
-
-This might be a useful template in such cases:
-
-```sh
-ANSIBLE_CONFIG="./ansible.cfg" python3 "$(which ansible-playbook)" --diff --inventory=inventory.yaml --ask-vault-pass --limit "greenlight2:&development" -v playbook.yaml
 ```
