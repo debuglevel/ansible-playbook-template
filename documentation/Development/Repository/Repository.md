@@ -1,10 +1,5 @@
 # Repository
 
-## Update subtrees
-
-Some git repositories might be included as subtrees.
-Use `update-git-subtrees.sh` to update them.
-
 ## Merge upstream changes from `debuglevel/ansible-playbook-template`
 
 This template is based on `debuglevel/ansible-playbook-template`.
