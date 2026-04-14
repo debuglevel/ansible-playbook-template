@@ -1,0 +1,15 @@
+---
+- name: Waiting for cloud-init to finish...
+  ansible.builtin.command: cloud-init status
+  register: cloud_init_status
+  retries: 30
+  delay: 10
+  until: >
+    'done' in cloud_init_status.stdout or
+    'disabled' in cloud_init_status.stdout
+  # On IONOS Ubuntu 24.04, `cloud-init status` exits with a 2;
+  # due to a deprecated setting in cloud-init config.
+  failed_when: 
+    - cloud_init_status.rc not in [0, 2]
+  changed_when: false
+  check_mode: false  # Run this even in --check mode. In --check mode, this task would just fail otherwise.

@@ -2,8 +2,16 @@
 all:
   vars:
     # The default user to connect to the hosts with.
-    # Must be a "sudo-able" user.
-    ansible_user: ansible
+    # This can be...
+    #   - a user which can use `sudo`.
+    #     You have to use `become` in this case.
+    #     You may want to supply an encrypted `ansible_become_password`.
+    #     `pipelining = True` does not work.
+    #   - root user
+    #     You just use a SSH key.
+    #     `pipelining = True` works.
+    # ansible_user: ansible
+    ansible_user: root
 
   hosts:
     nas01.sol.lan:
@@ -29,6 +37,8 @@ all:
         45892345934723894723847238472384782937489327482374823740982384354783247308947230
         34782374982347823947892347832470392478934798327489347892347893247039498230948230
         3243
+      # e.g. in case this host does not yet have a DNS entry.
+      ansible_host: 123.123.123.123
 
 
   children:
@@ -50,14 +60,22 @@ all:
       children:
         linux:
         windows:
+    # Define all `linux` servers.
     linux:
+      # "Import" all in other group(s), e.g. all `nas`.
+      # This is useful e.g. if a certain group can only be run on Linux.
+      # It might however be clearer to just list all hosts in `hosts`.
       children:
         nas:
+      # "Import" specific hosts, e.g. all `nas.sol.lan`.
+      hosts:
+        nas.sol.lan:
     windows:
       children:
+      hosts:
 
-    # Where - A datacenter or region, to talk to local DNS, storage, and so on (for example, east, west).
-    # TODO: do we need this?
+    # Where - A provider (Hetzner, AWS), datacenter or region (east, west).
+    # This might be useful if host have to talk to a local DNS, storage, and so on.
 
     # When - The development stage, to avoid testing on production resources (for example, prod, test).
     development:

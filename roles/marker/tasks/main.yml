@@ -1,0 +1,15 @@
+---
+- name: Ensure marker file /tmp/_ANSIBLE_TEST exists
+  ansible.builtin.file:
+    path: /tmp/_ANSIBLE_TEST
+    state: touch
+    mode: "0666"
+  changed_when: false
+
+- name: Append datetime to /tmp/_ANSIBLE_TEST_DATETIME
+  ansible.builtin.lineinfile:
+    path: /tmp/_ANSIBLE_TEST_DATETIME
+    line: "{{ ansible_date_time.iso8601 }}"
+    create: true
+    mode: "0644"
+  changed_when: false

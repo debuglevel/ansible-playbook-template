@@ -14,33 +14,15 @@
       delay: 10
       retries: 30
 
-# TODO: Could be a role
 - name: Waiting for cloud-init to finish...
   hosts: root_server
-  tasks:
-    - name: Waiting for cloud-init to finish...
-      ansible.builtin.command: cloud-init status
-      register: cloud_init_status
-      retries: 30
-      delay: 10
-      until: "'done' in cloud_init_status.stdout or 'disabled' in cloud_init_status.stdout"
-      changed_when: false
-      check_mode: false  # Run this even in --check mode. In --check mode, this task would just fail otherwise.
+  roles:
+    - wait_cloudinit
 
-# TODO: Could be a role
-# TODO: Append datetime into a file instead.
 - name: Leave a mark
   hosts: helloworld
-  tasks:
-    - name: Ensure file /tmp/_ANSIBLE_TEST
-      ansible.builtin.file:
-        path: /tmp/_ANSIBLE_TEST
-        state: touch
-        mode: "0666"
-      changed_when: false # Pretend it did not change anything so it does not pollute the summary.
-    - name: Write datetime to /tmp/_ANSIBLE_TEST_DATETIME
-      ansible.builtin.shell: "date > /tmp/_ANSIBLE_TEST_DATETIME"
-      changed_when: false # Pretend it did not change anything so it does not pollute the summary.
+  roles:
+    - marker
   tags:
     - always # Always run our silly little marker task :)
 
