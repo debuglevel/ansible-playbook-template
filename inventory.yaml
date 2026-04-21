@@ -55,8 +55,8 @@ all:
       hosts:
         nas.sol.lan:
 
-    # TODO: not sure whether we should distinguish operating systems because that is probably an Ansible variable.
-    root_server: # Servers which we have root access; i.e. no shared servers.
+    # TODO: Not sure whether we should distinguish operating systems because that is probably an Ansible variable.
+    root_server: # Servers which we have root access to; i.e. no shared servers.
       children:
         linux:
         windows:
