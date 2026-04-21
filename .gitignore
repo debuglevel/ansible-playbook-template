@@ -4,6 +4,7 @@ venv
 __pycache__
 *.retry
 ansible.log
+ansible.log.ansi
 .lock
 
 # Created by https://www.toptal.com/developers/gitignore/api/linux,code,vagrant
