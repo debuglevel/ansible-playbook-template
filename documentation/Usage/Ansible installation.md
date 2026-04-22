@@ -52,5 +52,5 @@ pip3 install --requirement requirements.txt
 ## Install Ansible dependencies
 
 ```sh
-ansible-galaxy install --role-file requirements.yaml
+ANSIBLE_CONFIG="./ansible.cfg" ansible-galaxy install --role-file requirements.yaml
 ```
