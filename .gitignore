@@ -1,10 +1,9 @@
 venv
 .venv
 *.log
+*.log.ansi
 __pycache__
 *.retry
-ansible.log
-ansible.log.ansi
 .lock
 .dependencies
 
