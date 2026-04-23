@@ -17,12 +17,4 @@ jobs:
         # replace "main" with any valid ref
         uses: ansible-actions/ansible-lint-action@v1.1.0
         with:
-          # [required]
-          # Paths to ansible files (i.e., playbooks, tasks, handlers etc..)
-          # or valid Ansible directories according to the Ansible role
-          # directory structure.
-          # If you want to lint multiple ansible files, use the following syntax
-          # targets: |
-          #   playbook_1.yml
-          #   playbook_2.yml
           target: "./"
