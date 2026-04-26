@@ -1,0 +1,5 @@
+{
+  // Makes the Ansible extension use the venv.
+  // Otherwise, it will complain about missing ansible-* commands.
+  "ansible.python.interpreterPath": "${workspaceFolder}/venv/bin/python",
+}
