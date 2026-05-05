@@ -1,3 +1,7 @@
 ---
 exclude_paths:
   - .dependencies/
+
+skip_list:
+  # This would reformat long lines on `ansible-lint --write`, which is scary.
+  - yaml[line-length]
