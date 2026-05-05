@@ -38,5 +38,6 @@ rules:
     forbid-explicit-octal: true # ansible-lint wants this
 
 ignore: |
-  venv/
+  venv
+  .venv
   .dependencies
