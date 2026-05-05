@@ -34,7 +34,7 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
-      changed_when: false # Never show as 'changed' to reduce noise.
+      changed_when: false # As this is always `changed: true`, it's not a real information; just set it to `changed: false`.
   tags:
     - always # Always update apt cache, because it's annoying if an installation fails just because the cache is out-of-date.
 
