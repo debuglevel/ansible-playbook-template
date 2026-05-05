@@ -2,6 +2,15 @@
 
 Ansible stuff can be linted, verified, checked, tested in various ways.
 
+## Combined
+
+```shell
+yamllint . && \
+  ANSIBLE_CONFIG="./ansible.cfg" ansible-lint && \
+  ANSIBLE_CONFIG="./ansible.cfg" ansible-playbook --syntax-check playbook.yaml && \
+  black .
+```
+
 ## YAML linting with `yamllint`
 
 * Install via `pip install yamllint`.
