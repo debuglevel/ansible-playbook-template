@@ -12,7 +12,7 @@ Ansible stuff can be linted, verified, checked, tested in various ways.
 
 * Install via `pip install ansible-lint`.
 * Run `ANSIBLE_CONFIG="./ansible.cfg" ansible-lint playbook.yaml` (or just `ANSIBLE_CONFIG="./ansible.cfg" ansible-lint`) to check a playbook for common issues or bad practices.
-* Reformat and possibly fix issues with `ansible-lint --fix`.
+* Reformat and possibly fix issues with `ANSIBLE_CONFIG="./ansible.cfg" ansible-lint --fix`.
 
 See also
 
