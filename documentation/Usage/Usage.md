@@ -13,7 +13,6 @@ ANSIBLE_CONFIG="./ansible.cfg" python3 "$(which ansible-playbook)" --inventory=i
 
 # If you want to save a colored log.
 ansible-playbook ... 2>&1 | tee -a ansible.log.ansi
-ansible-playbook ... 2>&1 | tee -a ansible.log.ansi
 ansible-playbook ... 2>&1 | -/logger.sh  # Log into multiple files in `log/`.
 # The `iliazeus.vscode-ansi` VSCode extension provides a Command `ANSI Text: Open Preview` to see the log as shown in the console.
 ```
