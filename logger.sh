@@ -18,7 +18,7 @@ mkdir -p logs
 mkdir -p logs/runs
 
 # Like ISO8601, but sanitized for Windows.
-TIMESTAMP=$(date +"%Y-%m-%d_%H-%m-%s")
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%m-%S")
 
 LOG_LATEST="logs/ansible-playbook-latest.log.ansi"
 LOG_ALL="logs/ansible-playbook-all.log.ansi"
